@@ -1,0 +1,606 @@
+<html>
+<head>
+<title> CS 314 Syllabus </title>
+<link rel="stylesheet" type="text/css" href="../test.css">
+<style>
+<!--
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman"
+	}
+span.highlight1
+	{}
+span.fineprnt
+	{}
+-->
+</style>
+<meta name="Microsoft Border" content="none, default">
+</head>
+
+<body stylesrc="../cs307/index.htm">
+
+<center class="header"><font size="5">Syllabus<b> - </b>Computer Science 314 - 
+Data Structures (Computer Programming 2)<br>
+The University of Texas at Austin · Fall 2011</font><hr>
+</center>
+ <p align="left"><b>Class Basics:</b></p>
+<ul>
+  <li>
+  <p align="left">Lecture: MWF 1 - 2 pm, 2 - 3 pm. 
+  (Turn off cell phones and laptops in lecture.)</li>
+  <li>
+  <p align="left">Discussion Section: Tuesdays, various times</li>
+  <li>
+  <p align="left">UT Course unique numbers 52307, 52308, 52309, 52311, 52312, 
+  52313, 52314, 52316</li>
+  <li>
+  <p align="left">Class Web Page:
+  <a href="http://www.cs.utexas.edu/~scottm/cs314/">
+  www.cs.utexas.edu/~scottm/cs314</a></li>
+</ul>
+  <p align="left"><b>Lecture and Discussion Sections Schedule:<br>
+&nbsp;</b><table border="1" cellspacing="1" width="87%">
+  <tr>
+    <td width="11%" align="center">Unique ID</td>
+    <td width="20%" align="center">Lecture Time and Location</td>
+    <td width="20%" align="center">Discussion Section Time<br>
+    All sections meet Tues.</td>
+    <td width="21%" align="center">Discussion Section Location</td>
+    <td width="14%" align="center">Discussion Section TA</td>
+    <td width="14%" align="center">Grader</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52307</td>
+    <td width="20%" align="center" rowspan="4">
+    <p align="center">MWF 1 - 2 pm<br>
+    <a href="http://www.utexas.edu/maps/main/buildings/utc.html">UTC 3.104</a></td>
+    <td width="20%" align="center">9 - 10 am</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/wel.html">WEL 3.266</a></td>
+    <td width="14%" align="center">Swati</td>
+    <td width="14%" align="center">Swati</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52308</td>
+    <td width="20%" align="center">10 - 11 am</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/par.html">PAR 310</a></td>
+    <td width="14%" align="center">Swati</td>
+    <td width="14%" align="center">Jay</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52309</td>
+    <td width="20%" align="center">11 am - 12 noon</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/wel.html">WEL 4.244</a></td>
+    <td width="14%" align="center">Swati</td>
+    <td width="14%" align="center">Swati</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52311</td>
+    <td width="20%" align="center">12 noon - 1 pm</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/pai.html">PAI 5.38</a></td>
+    <td width="14%" align="center">Yuanzhong </td>
+    <td width="14%" align="center">Yuanzhong</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52312</td>
+    <td width="20%" rowspan="4">
+    <p align="center">MWF 2 - 3 pm<br>
+    <a href="http://www.utexas.edu/maps/main/buildings/utc.html">UTC 3.102</a></td>
+    <td width="20%" align="center">1 - 2 pm</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/wel.html">WEL 4.244</a></td>
+    <td width="14%" align="center">Yuanzhong </td>
+    <td width="14%" align="center">Jay</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52313</td>
+    <td width="20%" align="center">2 - 3 pm</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/ben.html">BEN 1.124</a></td>
+    <td width="14%" align="center">Yuanzhong </td>
+    <td width="14%" align="center">Yuanzhong</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52314</td>
+    <td width="20%" align="center">3 - 4 pm</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/bio.html">BIO 301</a></td>
+    <td width="14%" align="center">Yuanzhong </td>
+    <td width="14%" align="center">Jay</td>
+  </tr>
+  <tr>
+    <td width="11%" align="center">52316</td>
+    <td width="20%" align="center">4 - 5 pm</td>
+    <td width="21%" align="center">
+    <a href="http://www.utexas.edu/maps/main/buildings/par.html">PAR 304</a></td>
+    <td width="14%" align="center">Swati</td>
+    <td width="14%" align="center">Jay</td>
+  </tr>
+  </table>
+<ul>
+  <li>
+<p align="left">Students may attend either lecture on MWFs. </p>
+  </li>
+  <li>
+<p align="left">Students must attend 
+a discussion section taught by the teaching assistant in charge of the unique id 
+for which they are officially registered.</p>
+  </li>
+</ul>
+<p align="left"><b>Teaching Staff:</b></p>
+<ul>
+  <li>
+  <p align="left">Instructor: Mike Scott, email:
+  <a href="mailto:scottm@cs.utexas.edu">scottm@cs.utexas.edu</a> 
+  office: <a href="http://www.utexas.edu/maps/main/buildings/pai.html">Painter Hall 
+     5.68</a><br>
+  Office Hours: Monday, Wednesdays, and Friday 3 - 5 pm<br>
+  Office 
+  hours will be 
+  held in the
+  <a href="http://www.cs.utexas.edu/facilities/accommodations/public_labs/index.shtml">computer lab</a> in
+  <a href="http://www.utexas.edu/maps/main/buildings/pai.html">PAI 5.38</a>.<br>
+  If you can not make these times please email me to set up an alternate time.</li>
+  <li>
+  <p align="left">Teaching Assistants:<ul>
+  <li>Swati Rallapalli, email:
+  <img border="0" src="../images/people/swatiMail.gif" alt="Swati mail" width="164" height="19">, Office 
+  Hours: Wednesday, 12 - 2 pm and Thursday, 1 - 4 pm</li>
+  <li>Yuanzhong Xu, email:
+  <img border="0" src="../images/people/yxuMail.gif" alt="xyu" width="159" height="21">, Office Hours: 
+  Monday 1:30 - 3:30 pm and Thursday 10 am - 1 pm</li>
+</ul>
+  </li>
+  <li>
+  <p align="left">Undergraduate Proctors: 
+<ul>
+  <li>
+  <p align="left">Jay Ordway, email:
+  <img border="0" src="../images/people/jayEmail.gif" width="134" height="17">, Office Hours: Monday, 3 
+  - 7 pm, Tuesday and Thursday, 5:30 - 8:30 pm</li>
+</ul>
+  </li>
+</ul>
+<p align="left"><b>Course Objectives:&nbsp; </b>This is a second course in computer programming. 
+     The purpose of the course is to learn how to use and implement canonical 
+data structures such as lists, iterators, stacks queues, trees, sets, maps, hash 
+tables, heaps, and graphs. The course also covers testing, reasoning about 
+programs (pre/post conditions, assertions), debugging, abstraction of data, 
+basic algorithm analysis, recursion, canonical sorting and searching algorithms, 
+and an introduction to the object oriented concepts of encapsulation, 
+inheritance, and polymorphism. Students will be able to implement medium sized 
+programs using the concepts listed. The course is taught 
+     using Java.</p>
+<p>Estimates of the required effort for the student who meets the course 
+prerequisites:</p>
+     <ul>
+       <li>4 hours per week of studying</li>
+       <li>6 - 12&nbsp; hours per week of programming</li>
+       <li>3000 lines of Java code.</li>
+     </ul>
+     <p><b>Formal Course Prerequisite: </b></p>
+<ol>
+  <li>CS305j or CS312 with a grade of C- or higher</li>
+</ol>
+<p><b>Informal Course Prerequisites:</b> Mastery of the following basic 
+programming topics: data types, variables, expressions and operators, control 
+structures (looping and decision making), procedures( a.k.a. functions, methods, 
+or subroutines), parameters, arrays (1d and 2d), simple user defined data types (records, 
+structures, objects), top down design. </p>
+<p>You should be able to design and implement a program in Java based on a  problem statement. The problem should 
+be complex enough that a well designed solution requires the following:</p>
+<ol>
+  <li>200 - 300 lines of code for a well designed solution</li>
+  <li>uses arrays of records or arrays of objects</li>
+  <li>requires 8 or more procedures / functions / methods for a well designed 
+  solution</li>
+</ol>
+<p>For example, create from scratch a program that allows two people to play a game of
+     <a href="http://en.wikipedia.org/wiki/Connect_Four">connect 4</a> on the computer. The display can be a simple text based interface.
+    Both players  share the same keyboard and take turns.</p>
+<p><b>Textbooks: </b></p>
+<ul>
+  <li>Recommended data structures book: <i>&nbsp;Data Structures 
+      and Problem Solving using Java, 4th edition </i>by Mark Allen Weiss, ISBN13 
+  978-0321541406. Addison Wesley 2010.</li>
+  <li>Recommended Java reference: <i>On to Java</i> by Patrick Henry Winston and 
+  Sundar Narasimhan , ISBN 978-0201725933. Addison Wesley 2001.</li>
+  <li>Recommended book for recursion: <i>Thinking Recursively with Java</i> by 
+  Eric Roberts, ISBN<b>:</b> 978-0471701460, Wiley 2005.</li>
+</ul>
+<p><b>Class Attendance, iClicker</b></p>
+<ul>
+  <li>Purchase an <b>iClicker</b> (a remote control device) from the Co-op 
+  bookstore or the <a href="http://www.iclicker.com/purchase/">iClicker website</a>. <p>Beware: There may be several incompatible brands of remote control devices 
+  on sale. Be sure you get the ``iClicker'' brand. For a picture of one, see the
+  <a href="http://www.iclicker.com/Products/iclicker/">iClicker</a> web site. We 
+  are using the original iClicker, not the iClicker 2. The Co-op will buy back the iClicker for about half the 
+  current price. I recommend that you put a piece of transparent tape across the 
+  serial number on the back of your iClicker to prevent it from being rubbed off 
+  with use. <b>The serial number is important when you register the iClicker (see 
+  the next step) and you want it intact when/if you sell the iClicker back to 
+  the bookstore. </b> <br>
+&nbsp;</li>
+  <li>Register your iClicker at
+  <a href="http://www.iclicker.com/support/registeryourclicker/">
+  http://www.iclicker.com/support/registeryourclicker/</a> by providing:
+  <ul>
+    <li>your first name </li>
+    <li>your last name </li>
+    <li>your UT EID (which they call your ``student ID'') </li>
+    <li>your clicker's ID (the serial number under the bar code on the back of 
+    the device) </li>
+  </ul>
+  <p>Even if you already have a iClicker and registered it in the past you must 
+  reregister for this semester.<br>
+&nbsp;</li>
+  <li>Bring your iClicker to every lecture. <u><b>Participation on the iClicker 
+  questions will determine attendance for each lecture. Don't be a
+  <a href="http://en.wikipedia.org/wiki/Special_case">special case</a>. </b></u></li>
+  <li><b>In order to get  credit for a given day you MUST:</b><ul>
+  <li><b>&nbsp;register your clicker prior to class <u>and</u></b></li>
+  <li><b>have your clicker with you <u>and</u></b></li>
+  <li><b>answer one or more of the attendance questions during class. </b></li>
+</ul>
+  </li>
+  <li><b>If you do not meet these requirements you will not receive iClicker credit 
+  for that day.</b></li>
+</ul>
+<p><b>Class Discussion Tool:</b> I have set up a discussion group for the class 
+on <a href="https://www.piazzza.com/">Piazza</a>.</p>
+<ul>
+  <li>Go to the Piazza web site and join the CS314 group for The University of 
+  Texas at Austin.</li>
+  <li>I will post class announcements and information to the discussion group.
+  </li>
+  <li>Post your questions about the class to the discussion group. You may also 
+  post your test cases to Piazza to share with other students.</li>
+</ul>
+<p><b>Email: </b>All students must become familiar with the 
+     University's official e-mail student notification policy. It is your responsibility to keep the University informed as to changes in 
+     your e-mail address. You are expected to check e-mail on a 
+     frequent and regular basis in order to stay current with University-related 
+     communications, recognizing that certain communications may be 
+     time-critical. It is recommended that e-mail be checked daily. The complete text of this policy and instructions 
+     for updating your e-mail address are available at<a href="http://tinyurl.com/3nk7f2g"> 
+http://tinyurl.com/3nk7f2g</a> which includes instructions on 
+how to update the email address you have on record with UT.</p>
+<p>In this course I use e-mail&nbsp; as a means of communication with students. 
+You will be responsible for checking your e-mail regularly for class work and 
+announcements.<p><b>Software: </b>Required software for programming assignments is described 
+     on this web page: <a href="../cs307/software.htm">http://www.cs.utexas.edu/~scottm/cs307/software.htm</a></p>
+     <p><b>Computing Facilities: </b></p>
+     <ul>
+       <li><b>
+       <a href="http://www.cs.utexas.edu/facilities/public-labs">Painter Hall Microcomputer Lab</a>. </b> 
+       PCs are available for assignments in the CS Department microcomputer lab 
+       located&nbsp; in&nbsp; Painter Hall, room 5.38. There are also public 
+       machines available in
+       <a href="http://www.utexas.edu/maps/main/buildings/ens.html">ENS rooms 1 
+       and 2</a>. You are free to work on your own computer if you wish.</li>
+     </ul>
+     <p><b>CS Lab Account:</b></p>
+     <ul>
+       <li>Students must obtain an account for the CS department microlab. Visit 
+       this website to request account:
+       <a href="https://udb.cs.utexas.edu/amut/acut/">
+       https://udb.cs.utexas.edu/amut/acut/</a> (If you had an account the previous semester it should renew 
+       automatically.)</li>
+       <li>Accounts take at least a day for account to become active. Please 
+       request your account as soon as possible. Even if you do not work in the 
+       lab, you will use this account to turn in your homework.</li>
+       <li>These accounts are only for the CS microlab, and not any other labs 
+       or networks at UT. This account is not the same as your UTEID or UT 
+       Direct account.</li>
+     </ul>
+<p><b>Schedule: </b>A schedule of lecture topics, reading assignments, and
+assignment distribution and due dates is <a href="schedule.htm">available online,
+via the class web page</a>, www.cs.utexas.edu/~scottm/cs314/schedule.htm.&nbsp;  The schedule page 
+contains links to slides for the lectures, assignments, and online readings. Readings 
+     are to be completed <b> before</b> class. The schedule is subject to 
+     change.</p>
+<p><b>Exams: </b>In order to effectively evaluate your understanding of course 
+material there will be two out of class midterms.
+<span style="font-family: Times New Roman">&nbsp;If you have a conflict with a 
+midterm please
+<a href="mailto:scottm@cs.utexas.edu?subject=CS314: Midterm conflict">email the instructor</a> as soon as possible to work out an alternate 
+time.</span></p>
+<ul>
+  <li>Midterm 1: Wednesday, October 5, from 6 - 8 pm,
+  <a href="http://www.utexas.edu/maps/main/buildings/bur.html">BUR 106</a> (covers up to and including 
+  linked lists)</li>
+  <li>Midterm 2: Wednesday, November 9, from 6 - 8 pm,&nbsp;<a href="http://www.utexas.edu/maps/main/buildings/utc.html">UTC 
+  2.102A</a> (covers up to and including binary search trees) </li>
+  <li>The CS314 final exam will be given at a uniform time for both lecture 
+      sections.  The date and time for the final will be available towards the 
+      end of October. Traditionally the Registrar schedules the final for either Wednesday, Thursday, or 
+      Friday evening of finals week, but could be as late as  Tuesday, December 13.</li>
+</ul>
+<hr>
+<p><b>Grading:</b> Here are the class components used to determine your final 
+average.</p>
+     <table border="2" cellpadding="3" width="63%">
+       <tr>
+         <td width="25%" align="center">Component Type</td>
+         <td width="25%" align="center">Number</td>
+         <td width="25%" align="center">Points</td>
+         <td width="25%" align="center">Total Points</td>
+       </tr>
+       <tr>
+         <td width="25%">Assignments</td>
+         <td width="25%" align="center">12</td>
+         <td width="25%" align="center">20 each</td>
+         <td width="25%" align="center">240</td>
+       </tr>
+       <tr>
+         <td width="25%">iClicker participation</td>
+         <td width="25%" align="center">40</td>
+         <td width="25%" align="center">1 each day</td>
+         <td width="25%" align="center">40</td>
+       </tr>
+       <tr>
+         <td width="25%">Quizzes</td>
+         <td width="25%" align="center">13</td>
+         <td width="25%" align="center">10 each</td>
+         <td width="25%" align="center">130</td>
+       </tr>
+       <tr>
+         <td width="25%">Midterm 1</td>
+         <td width="25%" align="center">1</td>
+         <td width="50%" align="center" colspan="2">175</td>
+       </tr>
+       <tr>
+         <td width="25%">Midterm 2</td>
+         <td width="25%" align="center">1</td>
+         <td width="50%" align="center" colspan="2">175</td>
+       </tr>
+       <tr>
+         <td width="25%">Final Exam</td>
+         <td width="25%" align="center">1</td>
+         <td width="50%" align="center" colspan="2">275</td>
+       </tr>
+     </table>
+     <ul>
+       <li>Programming assignments, iClicker participation , and quizzes can count 
+       no more than 375 points towards your final average.  Programming assignments, 
+       iClicker participation , and quizzes 
+       add up to 410 points. There are 35 points of &quot;slack&quot; in these non-exam 
+       grading components. This slack (and slip days explained below) is to 
+       account for any problems that may occur during the semester that cause 
+       you to miss one of these non-exam components. (Such as illness, family 
+       emergencies, hardware problems, etc.) Quizzes and 
+       iClicker participation cannot be made up for any reason. For assignments 
+       there is some leeway. See the explanation of slip days below.</li>
+       <li>The final letter grades will be assigned based on your total points. 
+       The maximum possible for points is 1000. The grade cutoffs are: &lt;600 = F, 600 - 
+       699 = D, 700 - 799 = C, 800 - 899 = B, &gt;= 900 = A. Plusses and minuses (+ 
+       and -) will be assigned to scores within 25 points of the cut offs. So 
+       for example total points 875 to 899 earn a B+ and total points 900 to 924 
+       earn an A-.</li>
+       <li>Note, points are not added to your final total. The &quot;slack points&quot; 
+       are handled by basing your final average on 1000 points instead of 1035 
+       points. There are 1035 points available in the course. non-exam component 
+       points are capped at a maximum of 375. In other words, earning more than 
+       375 points on the non-exam components will NOT result in points being 
+       added to your exam score. </li>
+       <li>Depending on the results of an exam, exam scores may be curved. If so, 
+     exam scores may stay the same or improve. Exam score will never get worse 
+     due to a curve. No other class components (assignments, iClicker 
+       participation, or quizzes) are curved.</li>
+       <li>You have 6 slip days to use through out the term on your assignments 
+       if you are not able to turn an assignment in on time. See the assignments 
+       page for details on how slip days work. <a href="Assignments/index.htm">www.cs.utexas.edu/~scottm/cs314/Assignments/index.htm</a>. Slip days are 
+       to account for life circumstances (My hard drive crashed!! I got a virus 
+       downloading an mp3!!) and emergencies. 
+       Do not use your slip days frivolously. If you use up your slip days and 
+       then have an emergency of some type you will receive a 0 if you do not 
+       turn in an assignment on time.</li>
+       <li>The required format and procedures for turning in assignments are 
+     available at <a href="Assignments/index.htm">www.cs.utexas.edu/~scottm/cs314/Assignments/index.htm</a>.Assignments 
+       that are not turned in to the correct directory in the correct format 
+       will cause you to use slip days, lose points, and/or receive a 0 on the assignment.</li>
+       <li>Quizzes are given at the beginning of every discussion section. If 
+       you are not present when the quiz is completed you receive a 0 for that 
+       quiz. Quizzes cannot be made up under any circumstances. Quizzes are not 
+       curved. Quiz grading will be: 10 for a perfect quiz, 7 - 9 for minor mistakes, 
+       and 6 or less for little or no effort.</li>
+       <li>If a student misses a midterm exam with a verifiable excuse the 
+     remaining exams will count for the missed exam.</li>
+       <li>If you are <b>dissatisfied with a grade</b> you receive on an 
+       assignment or test, you must submit your complaint via email, along with 
+       supporting evidence or arguments, to your grader  within <u><b><i>5 days</i></b></u> of the date the teaching staff first attempted to
+return the assignment or test to you.</li>
+       <li>Questions about your grade are to be sent to the grader assigned to 
+       your section. See the table above for graders and section unique ids.</li>
+       <li>You may request a regrade of an exam if you feel the grading criteria 
+       was not applied correctly. To ensure accuracy the entire exam will be 
+       regraded.</li>
+       <li>There are no opportunities for extra credit in this course.</li>
+</ul>
+<p>This course is similar to the old CS307 course. Historically:</p>
+<ul>
+  <li><b>74% </b>of the people taking the class earned a <b>C- or higher:&nbsp;&nbsp; 
+  24% A's,&nbsp; 30% B's,&nbsp; 20% C's</b></li>
+  <li><b>15% </b>earned a <b>D or F.</b> </li>
+  <li><b>11%</b> dropped or withdrew from the class,<b> </b>grade symbols<b> Q 
+  or W.</b> </li>
+</ul>
+<p><b>No whining:</b> Feedback and concerns about the course are always welcome; 
+legitimate grading errors that are identified in a timely fashion will certainly 
+be corrected, but whining is counter-productive and will only irritate those who 
+evaluate your work to determine grades. </p>
+<p><b>Important Dates for Changing Academic Status and Dropping the Course: </b>Refer to the
+<a href="http://registrar.utexas.edu/calendars/11-12">Registrar's academic calendar</a> for the deadlines for changes in academic 
+     status. Highlights are:</p>
+<ul>
+       <li>Monday, August 29: Last day of the official add/drop period; after 
+       this date, changes in registration require the approval of the department 
+       chair and usually the student’s dean.</li>
+       <li>Friday, September 9: (12th class day) Last day to drop for a possible refund. Last 
+       day to add a course.</li>
+       <li>Tuesday, November 1st: Last day an 
+       undergraduate student may, with the dean’s approval, withdraw from the 
+       University or drop a class (Q drop) except for urgent and substantiated, 
+       nonacademic reasons. Last day a student may change registration in a 
+       class to or from the pass/fail or credit/no credit basis.<b> In practice I always grant approval 
+       for &quot;Q drops&quot; up to this date as long as their are no issues with 
+       academic integrity.</b></li>
+       <li>After Monday, November 1st, students must go to the  academic 
+       advisors in their college Dean's office. To be eligible for an <b>
+       incomplete (UT uses the symbol X to indicate incompletes)</b> you must have a letter grade of
+       <b>C-</b> or better and a 
+       written, verifiable excuse for missing the last test. This is a <b>
+       necessary</b> but <b>insufficient</b> condition for receiving an 
+       incomplete.</li>
+     </ul>
+
+<p>&nbsp;</p>
+<p><b>Important Dates for Changing Academic Status and Dropping the Course: </b>Refer to the
+<a href="http://registrar.utexas.edu/calendars/09-10/index.html">Registrar's academic calendar</a> for the deadlines for changes in academic 
+     status. Highlights are:</p>
+<ul>
+       <li>Friday, January 21: Last day of the official add/drop period; after 
+       this date, changes in registration require the approval of the department 
+       chair and usually the student’s dean.</li>
+       <li>Wednesday, February 2: (12th class day) Last day to drop for a possible refund. Last 
+       day to add a course.</li>
+       <li>Monday, March 28:(Half way point of semester) Last day an 
+       undergraduate student may, with the dean’s approval, withdraw from the 
+       University or drop a class (Q drop) except for urgent and substantiated, 
+       nonacademic reasons. Last day a student may change registration in a 
+       class to or from the pass/fail or credit/no credit basis.<b> In practice I always grant approval 
+       for &quot;Q drops&quot; up to this date as long as their are no issues with 
+       academic integrity.</b></li>
+       <li>After Monday, March 28, students must go to the non academic 
+       advisors in their college Dean's office. For CS majors go to
+       <a href="http://www.utexas.edu/maps/main/buildings/wch.html">WCH 1.106</a>. To be eligible for an <b>
+       incomplete (UT uses the symbol X to indicate incompletes)</b> you must have a letter grade of <b>C-</b> or better and a 
+       written, verifiable excuse for missing the last test. This is a <b>
+       necessary</b> but <b>not sufficient</b> condition for receiving an 
+       incomplete.</li>
+     </ul>
+<hr>
+<p><b><a name="Collaboration"></a>Academic Dishonesty: </b>Taken from the
+<a href="http://www.cs.utexas.edu/undergraduate-program/code-conduct">CS 
+     department Code of Conduct</a>. </p>
+     <p>&quot;The University and the Department are committed to preserving the 
+     reputation of your degree. It means a lot to you. In order to guarantee 
+     that every degree means what it says it means, we must enforce a strict 
+     policy that guarantees that the work that you turn in is your own and that 
+     the grades you receive measure your personal achievements in your classes:</p>
+     <p class="subhead">Every piece of work that you turn in with your name on 
+     it must be yours and yours alone unless explicitly allowed by an instructor 
+     in a particular class. Specifically, unless otherwise authorized by an 
+     instructor:</p>
+     <ul>
+       <li>Students may not discuss their work with anyone except the instructor 
+       and other members of the instructional staff (instructor, TA, lab 
+       proctor or partner on a pair assignment).</li>
+       <li>Students may not acquire from any source (e.g., another student or an 
+       internet site) a partial or complete solution to a problem or project 
+       that has been assigned.</li>
+     </ul>
+     <p class="subhead">You are responsible for complying with this policy in 
+     two ways:</p>
+     <ol>
+       <li>You must not turn in work that is not yours, except as expressly 
+       permitted by the instructor of each course.</li>
+       <li>You must not enable someone else to turn in work that is not theirs. 
+       Do not share your work with anyone else. Make sure that you adequately 
+       protect all your files. Even after you have finished a class, do not 
+       share your work or published answers with the students who come after 
+       you. They need to do their work on their own.</li>
+     </ol>
+     <p><font color="red">The penalty for academic dishonesty will be a course 
+     grade of <b>F</b> and a referral of the case to the <b>
+     <a target="_blank" href="http://deanofstudents.utexas.edu/">Dean of 
+     Students</a></b>. Further penalties, including suspension or expulsion from 
+     the university may be imposed by that office.</font></p>
+     <p>One final word: This policy is not intended to discourage students from 
+     learning from each other, nor is it unmindful of the fact that most 
+     significant work in computer science and in the computing industry is done 
+     by teams of people working together. But, because of our need to assign 
+     individual grades, we are forced to impose an otherwise artificial 
+     requirement for individual work. In some classes, it is possible to allow 
+     and even encourage collaboration in ways that do not interfere with the 
+     instructor's ability to assign grades. In these cases, your instructor will 
+     make clear to you exactly what kinds of collaboration are allowed for that 
+     class.&quot;</p>
+     <p>For CS314 the policy on collaboration is modified as follows: You are encouraged to study for tests together, to <b><i>discuss</i></b> 
+     methods for solving the assignments, to help each other in using the 
+     software, and to discuss methods for debugging code. <b>Essentially
+if you <i>talk</i> about an assignment with any one else you are okay, but the
+moment you start <i>looking at someone else's source code</i> or <i>showing 
+     someone else your source code </i>you have crossed the line into 
+     cheating. </b>You should not ask anyone to give you a 
+     copy of their code or, conversely, give your code to another student who 
+     asks you for it. Similarly, you should not discuss your algorithmic 
+     strategies to such an extent that you and your collaborators end up turning 
+     in exactly the same code. <u><b>Discuss</b></u> high level approaches together, but do 
+     the coding on your own.<b> </b></p>
+     <p>Understand the difference between cheating and collaboration. 
+     Collaboration is allowed, cheating will lead to failure in the course.</p>
+     <p><b>Examples of cheating </b>are many and include accessing another 
+     student's account, looking at someone else's solution code, copying or 
+     downloading someone else's solution code, referring to solutions from 
+     previous semesters, and / or allowing others to copy of 
+     access your solution code. This means you <u><b>shall not</b></u> look on the 
+     internet for code to solve your problems. </p>
+     <p><b>Examples of allowable collaboration </b>include discussions and 
+     debate of general concepts and solution strategies and help with syntax 
+     errors. </p>
+     <p><b> The code you can reuse in this course are:</b></p>
+     <ol>
+       <li><b>You may use any code you develop with the instructor, TAs, or 
+       proctors.</b></li>
+       <li><b>You may use code (with attribution) from the class slides and the class coding examples. </b></li>
+       <li><b>You may share additional test cases and expected results of test 
+       cases.</b></li>
+     </ol>
+     <p><b>You shall not make use of code you find from other sources including 
+     the world wide web. Materials from the web should only be used for 
+     educational purposes. Thus, you can read about linked lists and look at 
+     examples of linked list code, but you must not copy any code from the web 
+     or be looking at any of this code from the web when writing anything you 
+     turn in. If you discuss an assignment with another students or look at 
+     examples from the web you should employ the <u>World of Warcraft Rule</u>: 
+     after a discussion with another student or looking at example code you 
+     should do something that has nothing to do with computer science or 
+     programming for al least half an hour. Playing World of Warcraft or other similar activity. 
+     (Watching a sitcom, reading a book.)</b></p>
+     <p>You are also allowed to post short segments of code (3 lines or less) of code 
+     that are giving you syntax errors to the class listserv in order to get 
+     help on fixing the syntax error.</p>
+     <p><b>If you have any doubts about what is allowed ask the instructor.</b></p>
+<p><b>Plagiarism detection software will be used on  assignments to find
+students who have copied code from one another.&nbsp;</b>  
+
+
+<p>For more information on Scholastic Dishonesty see the
+<a href="http://registrar.utexas.edu/catalogs/gi09-10/app/gi09.appc03.html#chapter-11-student-discipline-and-conduct">University Policy on Scholastic Dishonesty</a> <br>
+&nbsp;<hr>  
+
+
+<p><b>Religious Holidays: </b>By UT Austin policy, you must notify me of your 
+pending absence at least fourteen days prior to the date of observance of a 
+religious holy day. If you must miss a class, an examination, a work assignment, 
+or a project in order to observe<br>
+a religious holy day, you will be given an opportunity to complete the missed 
+work within a reasonable time after the absence.<p><b>Students with Disabilities:</b> students with disabilities 
+may request appropriate academic accommodations from the Division of Diversity 
+and Community Engagement, Services for Students with Disabilities, 471-6259,
+<a href="http://www.utexas.edu/diversity/ddce/ssd/">
+www.utexas.edu/diversity/ddce/ssd/</a>.<br>
+&nbsp;<hr>
+
+<p><center>
+<p><i><a href="index.htm">To the CS 314 home page</a>
+</i></p>
+</center>
+
+</body>
+</html>

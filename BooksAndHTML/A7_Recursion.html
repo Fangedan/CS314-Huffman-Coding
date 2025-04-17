@@ -1,0 +1,511 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>CS314 Assignment - Recursion </title>
+<link rel="stylesheet" type="text/css" href="../../test.css">
+</head>
+
+<body stylesrc="../../cs307/index.htm">
+
+<p align="left"><b>THINGS TO DO:</b></p>
+
+<ol>
+  <li>
+
+<p align="left"><b>Reorder methods in Recursion.java so they make more sense</b></p>
+
+  </li>
+  <li>
+
+<p align="left"><b>Generate javadoc for Recursion.java</b></p>
+
+  </li>
+  <li>
+
+<p align="left"><b>Sudoko -&gt; No need for can change. If it is a zero it can be 
+changed</b></p>
+
+  </li>
+  <li>
+
+<p align="left"><b>Simplify digits okay. Pass in row and column. Just need to 
+check that row, column, and mini matrix.</b></p>
+
+  </li>
+</ol>
+
+<p align="center"><font size="5">CS 314 - Specification 7 - Recursion</font></p>
+
+<p align="left" dir="ltr"><b>Programming 
+    Assignment 7: </b>Pair Assignment. You <u>may</u> work with one 
+other person on this assignment using the pair programming technique. Review 
+this 
+<a target="_blank" href="../../cs307/handouts/papers/Pair-Prog-CACM-1999.pdf">paper 
+on pair programming</a>. You are <u>not</u> required to work in a pair on the 
+assignment. (You may complete it by yourself if you wish.) If you begin working with one partner and do not wish to finish the 
+assignment with that partner you must complete the assignment individually. If 
+you work with a partner, the intent is that you work together, at the same 
+computer. One person &quot;drives&quot; (does the typing and explains what they 
+are doing) and the other person &quot;navigates&quot; (watches and asks questions when 
+something is unclear). You <b>should not</b> partition the work, work on your 
+own, and then put things together. </p>
+
+<p align="left" dir="ltr">You and your partner may not acquire from any source 
+(e.g.&nbsp; another student or an internet site) a partial or complete solution 
+to a problem or project that has been assigned. You and your partner may <b style>not</b> show 
+other students your 
+    solution to an assignment. You <b>may <span style>not</span></b> have another person 
+    (current student other than your partner, former student, tutor, friend, anyone) “walk you through” 
+    how to solve an assignment. You may get help from the instructional staff. 
+You may discuss general ideas and approaches with other students. Review the <a href="../syllabus.htm#Collaboration">class policy on collaboration 
+    from the syllabus</a>. If you took CS314 or CS307 previously and work with a 
+partner you must start from scratch on the assignment.</p>
+
+<ul>
+  <li>Placed online: Wednesday, October 12</li>
+  <li>20 points, ~2% of final grade.</li>
+  <li>Due: no later than 11<font size="3"> pm, Thursday, October 20</font></li>
+  <li><font size="3"><a href="index.htm">General Assignment Requirements</a></font></li>
+  </ul>
+
+<p>The purpose of this assignment is to practice writing recursive algorithms.</p><p>In this assignment you will write recursive methods and trace some recursive code by hand. Some of the methods will use recursion to solve problems that could just
+      as easily, if not more easily, be solved using simple iteration (for loops
+      or while loops), but you will use recursion for the experience. (These are
+      labeled &quot;Simple&quot; in the tips section of the handout.)
+      You will collect all of these methods in a single class, Recursive. Some of
+      the non-simple methods still need a
+      normal loop as in the recursive backtracking examples shown in class.
+      (Such as the       <a href="../../cs307/javacode/codeSamples/RecursionExampleDirectory.java">determining the space taken up by files</a> and the      <a href="../../cs307/javacode/codeSamples/EightQueens.java">N Queens</a> examples       done in class. Those were both examples of recursive backtracking.) The tester code will be placed in a class named RecursiveTester. You will turn in 
+these two files. (No jar file this time.)</p>
+    <p><b>Files:</b></p>
+
+    <table border="2" cellpadding="2" cellspacing="3" width="100%">
+      <tr>
+        <td width="15%" align="right" valign="top">
+        &nbsp;</td>
+        <td width="50%">
+        File</td>
+        <td width="50%">Responsibility</td>
+      </tr>
+      <tr>
+        <td width="15%" align="right" valign="top">
+        Source Code</td>
+        <td width="50%">
+        <a href="../javacode/A7_Recursion/RecursiveTrace.java">RecursiveTrace.java</a>.         Put your answers to the questions in this file into a comment at the         top of RecursiveTester.java.</td>
+        <td width="50%">Provided by me.</td>
+      </tr>
+      <tr>
+        <td width="15%" align="right" valign="top">
+        Source Code</td>
+        <td width="50%">
+        <a href="../javacode/A7_Recursion/Recursive.java">Recursive.java.</a></td>
+        <td width="50%">Provided by me and you</td>
+      </tr>
+      <tr>
+        <td width="15%" align="right" valign="top">
+        Source Code</td>
+        <td width="50%">
+        <a href="../javacode/A7_Recursion/RecursiveTester.java">RecursiveTester.java.</a>
+        Contains test cases for methods in Recursive.java and your answers to
+        the tracing questions</td>
+        <td width="50%">Provided by you and me.&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="15%" align="right" valign="top">Utility Class</td>
+        <td width="50%">
+        <a href="../javacode/A7_Recursion/DrawingPanel.java">DrawingPanel.java
+        </a>A class for creating simple graphics windows. You need this class for         the triangle and carpet problems.</td>
+        <td width="50%">Provided by me.</td>
+      </tr>
+      <tr>
+
+        <td width="15%" align="right" valign="top">Utility class</td>
+        <td width="50%">
+        <a href="../../cs307/javacode/utilities/Stopwatch.java">Stopwatch.java</a>.
+        A class for calculating elapsed time when running other code.</td>
+        <td width="50%">Provided by me.</td>
+      </tr>
+
+      <tr>
+        <td width="15%" align="right" valign="top">Submission</td>
+        <td width="50%">
+        Turn your completed Recursive.java and RecursiveTester.java files 
+        individually. (No jar file.) If working with a partner turn in the files 
+        to one of your accounts, not both.</td>
+        <td width="50%">Provided by you.</td>
+      </tr>
+      </table>
+      <p>The provided file RecursiveTrace.java       contains a number of methods and questions. Answer the questions in this       file by tracing the code by hand. Place your answers in a comment at the       top of the RecursiveTester class.</p>
+      <p>The provided file Recursive.java
+      contains nine methods that you must complete. For each method you
+      complete clearly state the base case and&nbsp; recursive step for each
+      method.</p>
+      <p>The provided file RecursiveTester.java
+      contains a number of tests of the methods in Recursive.java. Some of these       tests may be incorrect. Find and fix any incorrect tests. Your
+      implementation of Recursive.java must pass these tests. Add at least <u>      <b>3</b></u> tests for each method other than the triangle and carpet       methods to RecursiveTester.java.</p>
+      <p>When finished turn in your Recursive.java       and RecursiveTester.java using the <a href="../../cs307/turnin.html">turnin program</a>.
+      <b>If working with a partner turn in your two files to only one of your 
+      accounts.</b></p>
+      <p><b>Checklist: </b>Did you remember to:</p>
+    <ul>
+  <li>review and follow the <a href="index.htm">general assignment requirements</a>?</li>
+  <li>work on the assignment with at most one other person?</li>
+  <li>fill in the header in Recursive.java?</li>
+  <li>ensure your methods in Recursive.java pass the tests in RecursiveTester.java and add your own tests?   Add at least   3 tests for each   method other than the triangles and carpets methods.</li>
+  <li>Place your answers to the questions regarding the methods in RecursiveTrace.java in a comment at the   top of the RecursiveTester class?</li>
+  <li>turn in your files (Recursive.java and RecursiveTester.java ) to the proper
+    account in the Microlab via the turnin program before 11 pm, Thursday,   October 20? Remember, if working with a partner turn in the files to only one 
+  of your accounts.</li>
+</ul>
+    <hr><p><b>Individual Problem Descriptions from Recursive.java:</b></p>
+    <p ALIGN="LEFT"><u><b>1. Binary Conversion</b></u></p>
+    <p ALIGN="LEFT"> <code>public String getBinary(int N)</code></p>
+    <p ALIGN="LEFT">(Simple Recursion) Write a method to recursively creates a
+    String that is the binary representation of an int N.&nbsp;&nbsp;</p>
+    <p ALIGN="LEFT">Here is an example. The binary equivalent of 13 may be found
+    by repeatedly dividing 13 by 2.&nbsp; If there is a remainder a 1 gets
+    concatenated to the resulting String otherwise a zero gets concatenated to
+    the resulting String. (The tricky part is figuring out the right time and     place to do
+    the concatenation.)</p>
+    <p ALIGN="LEFT">13 / 2 = 6 r 1<br>
+    6 / 2 = 3 r 0<br>
+    3 / 2 = 1 r 1<br>
+    1 / 2 = 0 r 1<br>
+    <br>
+    13 in base 2 is 1101. The method would return &quot;1101&quot;.</p>
+    <p><u><b>2. Reversing a String</b></u></p>
+    <p ALIGN="LEFT"> <code>public String revString(String target)</code></p>
+    <p ALIGN="LEFT">(Simple Recursion) Write a recursive method that returns a     String that is the reverse of the input String.</p>
+    <p ALIGN="LEFT"><code>System.out.println( recursiveObject.revString(&quot;Calvin     and Hobbes&quot;));</code></p>
+    <p ALIGN="LEFT">would return a String equal to this: <code>&quot;sebboH dna 
+    nivlaC&quot;</code></p>
+    <p align="left"><u><b>3</b></u><b><u>. nextIsDouble</u></b></p>
+    <p align="left"> 	<code>// pre: data != null<br>    public int nextIsDouble(int[] data){</code></p>
+    <p align="left">(Simple Recursion) This methods returns the number of 
+    elements in data that are followed directly by double that element. For 
+    example, the iven array <code>{1, 2, 4, 8, 16, 32, 64, 128, 256}</code> the 
+    method would return 8. The elements 1, 2, 4, 8, 16, 32, 64, and 128 are all 
+    followed directly by double their value.&nbsp; Give the array <code>{1, 3, 
+    4, 2, 32, 8, 128, -5, 6}</code> the method would return 0. No element in the 
+    array is followed directly by double that element.&nbsp; Given the array
+    <code>{1, 0, 0, -5, -10, 32, 64, 128, 2, 9, 18}</code> the method would 
+    return 5. The elements 0, -5, 32, 64 and 9 are all followed directly by 
+    double their value. </p>
+    <p align="left">Write a helper method that is sent the array and the current 
+    position or index in the array. That is where the actual recursion will take 
+    place. The public method shown above will simply kick off the recursion.</p>
+    <p align="left"><u><b>4. Phone Mnemonics&nbsp; </b></u></p>
+    <p align="left"> <code>public ArrayList&lt;String&gt;
+    listMnemonics(String number)</code></p>
+    <p align="left">(From <i>Thinking Recursively </i>by Eric Roberts.) On most     telephone keypads the letters of the alphabet are mapped to various digits as shown
+    in the picture below:</p>
+    <p align="left">&nbsp; <img border="0" src="../../images/Recurs1.gif" width="327" height="444"></p>
+    <p ALIGN="LEFT">In order to make their phone numbers more memorable, service     providers like to find numbers that spell out some word (called a <b>mnemonic</b>)
+    appropriate to their business that makes that phone number easier to
+    remember. For example, the phone number for a recorded time-of-day message
+    in some localities is 637-8687 (NERVOUS). Write a method <font size="2">listMnemonics
+    </font>that will generate all possible letter combinations that correspond
+    to a given number, represented as a string of digits. <b><i>This is a     recursive backtracking problem, but you are trying to find all the &quot;solutions&quot;, not just one.     In fact you are trying to find all possible Strings, not just Strings that     are actual &quot;words&quot;.</i></b></p>
+    <p ALIGN="LEFT">For example, if you
+    call</p>
+    <p ALIGN="LEFT"><code><font size="4">ArrayList&lt;String&gt; result =
+    recursiveObject.listMnemonics(&quot;623&quot;)&nbsp;</font></code></p>
+    <p ALIGN="LEFT">your method shall generate and return an ArrayList
+    containing the following 27 possible letter combinations that correspond to
+    that prefix:</p>
+    <b>
+    <p ALIGN="LEFT">MAD MBD MCD NAD NBD NCD OAD OBD OCD</p>
+    <p ALIGN="LEFT">MAE MBE MCE NAE NBE NCE OAE OBE OCE</p>
+    <p ALIGN="LEFT">MAF MBF MCF NAF NBF NCF OAF OBF OCF</p>
+    </b>
+    <p ALIGN="LEFT">Note, the order of the Strings in the ArrayList is
+    unimportant.&nbsp;&nbsp;</p>
+    <p ALIGN="LEFT">You will use the following helper method:</p>
+    <p ALIGN="LEFT"><code>public String digitLetters(char ch)</code></p>
+    <p ALIGN="LEFT">This method returns the letters associated with a given
+    digit.</p>
+    <p ALIGN="LEFT">You will  find it useful to create a method that
+    does most of the real work:</p>
+    <p ALIGN="LEFT"><code>private void recursiveMnemonics(ArrayList&lt;String&gt;     result, String mnemonicSoFar, String digitsLeft)</code></p>
+    <p ALIGN="LEFT">The ArrayList named result is used to store completed     mnemonics. mnemonicSoFar is the String that has been built up so far based     on various choices of letters for a digit. Initially it is the empty String.     digitsLeft consists of the digits from the original number that have not     been used so yet. Initially digitsLeft is the entire phone number. (Or     collection of digits.)</p>
+    <p ALIGN="LEFT">To kick off the recursion you would call method
+    recursiveMnemonics from listMnemonics:</p>
+    <p ALIGN="LEFT"><code>ArrayList&lt;String&gt; result = new ArrayList&lt;String&gt;();<br>    recursiveMnemonics(result, &quot;&quot;, number);
+    // when starting the mnemonic is the empty string<br>    return result;</code></p>
+    <p ALIGN="LEFT"><b>It should come as no surprise there is a website that     does this kind of thing, but checks the results against a dictionary:&nbsp; <a href="http://www.phonespell.org/">    http://www.phonespell.org/</a> </b></p>
+    <p ALIGN="LEFT">&quot;sebboH dna nivlaC&quot;</p>
+    <p ALIGN="LEFT"><u><b>5. Creating fair teams.(This is a     hard one. You may want to save it for last.)</b></u></p>
+    <p ALIGN="LEFT"><code>// pre: numTeams &gt;= 2, abilities != 0,     abilities.length &gt;= numTeams<br>    /* post: return the minimum possible difference between the team with the     maximum ability and the team with the minimum ability. Every team must have     at least one member and every person (ability score) must be assigned to     some team. The return value will must be greater than or equal to 0.<br>    */</code></p>
+    <p ALIGN="LEFT">In this question you are passed an int that represents the     number of teams we want to form. You are also passed an array of ints that     represents the abilities of all of the individuals we want to assign to     teams. (It could be athletic ability, IQ, artistic ability, etc.) Abilities     can be positive or negative. </p>
+    <p ALIGN="LEFT">The goal of this method is to find the minimum possible     difference between the team with the maximum ability and the team with the     minimum ability. The constraints are everyone (represented by a value in the     array named abilities) must be placed on a team and every team must have at     least one member. </p>
+    <p ALIGN="LEFT">You must create the helper method. You will need to keep track     of multiple things such as which element in the abilities array you are     currently considering, what the total ability score is for each team, as     well as some way of ensuring each team has at least one member. (You could     simply track the number of members per team.)</p>
+    <p ALIGN="LEFT">For example if we have the following abilities: [1, 2, 3, 4,     5, 6, 7] and want to form three teams the min difference possible between     the team with the maximum total ability and the team with the minimum total     ability is 1. Your program does not need to show what the members of each     team are but in this example the minimum possible difference is created by     having 2 teams with a total ability of 9 and 1 team with 10. (min 9, max     10). There are multiple ways of doing this with these values one of which     is:<br>    Team 1:&nbsp; 1 + 3 + 6 = 10<br>    Team 2:&nbsp; 2 + 7 = 9<br>    Team 3:&nbsp; 4 + 5 = 9</p>
+    <p ALIGN="LEFT">In this problem there is a lot to do when you reach the base 
+    case. You must ensure every team has at least one person on it (or it is an 
+    invalid set up), and if it is a valid set up find the min and max team 
+    ability scores. If the setup is invalid you must return some value to 
+    indicate the set up was invalid. (-1 perhaps?)</p>
+    <p ALIGN="LEFT"><u><b>6. Water flowing off a map.</b></u></p>
+    <p ALIGN="LEFT"> <code><br>    /*pre: map != null, map.length &gt; 0, map is
+    a rectangular matrix, 0 &lt;= row &lt; map.length,<br>&nbsp; 0 &lt;= col &lt; map[0].length<br>
+    &nbsp; post: return true if a drop of water starting at the location     specified by row, column can reach the edge of the map, false otherwise.<br>
+    */<br>
+    public boolean canFlowOffMap(int[][] map, int row, int col)&nbsp;&nbsp;&nbsp;&nbsp;</code></p>
+    <p ALIGN="LEFT">In this problem an area of land is represented as a 2D array     of ints. The value at each element represents the elevation of that point on     land. The higher the elevation, the higher the number, the lower the     elevation the lower the number. So a flat plain at an elevation of 100 feet     above sea level might look like this:</p>
+      <table border="1" width="50%">
+        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+        </tr>
+        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+        </tr>
+        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          </tr>        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          </tr>        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          </tr>        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          </tr>        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          </tr>        <tr>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          <td width="10%" align="center">100</td>
+          </tr>
+      </table>
+
+<p align="left">A river flowing through a 200 foot&nbsp; gorge might look like this.     Cells that make up the river are shaded gray.</p>
+
+      <table border="1" width="50%" height="249">
+        <tr>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>100</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>99</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center" height="18"><b>200</b></td>
+          <td width="10%" align="center" height="18" bgcolor="#C0C0C0"><b>98</b></td>
+          <td width="10%" align="center" height="18"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>97</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#FFFF00"><b>96</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center" height="19" bgcolor="#FF0000"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#0000FF"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>95</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>85</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>84</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>83</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>94</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>93</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>92</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>86</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>82</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>150</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>91</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>87</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>81</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#00FF00"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>90</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>89</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>88</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>80</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>150</b></td>
+          <td width="10%" align="center"><b>100</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>79</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>78</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>77</b></td>
+        </tr>
+        <tr>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19"><b>200</b></td>
+          <td width="10%" align="center" height="19" bgcolor="#C0C0C0"><b>76</b></td>
+        </tr>
+      </table>
+    <p>Method <code>canFlowOffMap</code> has a parameter that represents a map     of elevations as 2D array of ints. It also has parameters that represent the     starting location of a drop of water on the map. 
+    <ul>      <li>The drop of water can move     to one of the four adjacent cells (above, below, left, and right of the     current cell)<b> if </b>the elevation in that cell is less than the elevation of     the current cell.
+      </li>      <li>Water in any cell on the edge of the map can flow off the map. 
+      </li>      <li>In other words water in a cell on the border of the map is assumed to       be able to flow off the map regardless of the cells around it.
+      </li>      </ul>
+    <p>In the first example, the plain, water in any cell not on the     border of the 2d array, cannot flow to any other cell because all adjacent     cells because all the elevations are the same. Water on any of the bordering     cells could flow off the map. In the second example if a drop of water     started at the cell at row 2, column 2 (the yellow cell with a value of 96) it could eventually flow off the map     by following the river. (Each segment of the river is one foot lower than     the previous.)&nbsp;
+    <p>Recall that water on the border can also flow off. So in the second 
+    example if we started at the cell in row 3, column 0 (the red cell with a 
+    value of 200) then we can flow off the map. The elevation in that cell is 
+    200. The water can't flow to any of the other cells adjacent to it, but that 
+    doesn't matter because that cell is on the border and so if start there I 
+    can flow off the map. 
+    <p>If the starting cell is row 3, column 1 (the blue cell with a value of 
+    200), the water can flow off the map. That cell has an elevation of 200. The 
+    water can't flow west or south because those cells are also at 200. But the 
+    water can flow north or east to the cells in the river. (the water falls off 
+    the bank into the river) and then off the map via the river. 
+    <p>Finally the cell at row 6, column 1 (the green cell with a value of 200) 
+    can't flow off the map. It tries north and dead ends. It can't move east or 
+    west. It can try south, but eventually dead ends. <p>When thinking about the problem it may help to think that     off the edge of border rows and columns is an infinitely deep canyon. So if     you are on a border of the map, (row 0 , column 0, last row, or last column)     then you can flow off the map. (Base case?)<p><code>canFlowOffMap</code> is to return true if a drop of water starting     at the location specified by row, column can reach the edge of the map,     false otherwise.<p><u><b>7.  Sierpinski triangles</b></u><p>Write a     method to draw a <a href="http://en.wikipedia.org/wiki/Sierpinski_triangle">    Sierpinski triangle</a>. Sierpinski triangles are fractals named after their     creator. Here is an example<p>    <img border="0" src="../../images/Recurs1.jpg" width="397" height="447"><p>Here is another example.<p>    <img border="0" src="../../images/Recurs2.jpg" width="401" height="444"><p>To draw the Sierpinski     triangle there are two methods, a starter method and the recursive method.     Here is the header of the starter method:<p><code>/**<br>    * Create a DrawingPanel and place Sierpinski triangles in it. The lower<br>    * left corner should be 20 pixels from the left edge of the window<br>    * and 20 pixels from the bottom of the window.<br>    * @param windowSize &gt; 20<br>    * @param minSideLength &gt; 4<br>    * @param startingSideLength &gt; minSideLength<br>    */<br>    public void drawTriangles(int windowSize, int minSideLength, int     startingSideLength)</code><p>The parameters of this method specify the size     of the window that will contain the triangles, the minimum side length and     the initial side length. This method is already complete. It creates a <code>    DrawingPanel</code> object, gets the <code>Graphics</code> object for that    <code>DrawingPanel</code>, and then calls the recursive helper method that     actually draws the triangles. (<code>DrawingPanel</code> is not a standard     Java class. You must download it from this web page.) Here is the header of     the recursive helper method that you will complete.<p><code>public void drawTriangles(int minSideLength, double currentSideLength, double x1, double y1,     Graphics g)</code><p>The parameters for this method are the minimum side     length, the current length of a side, and a set of coordinates for the lower     left corned of an equilateral triangle.<p>    <img border="0" src="../../images/Recurs3.gif" width="668" height="321"><p>    The algorithm for drawing a Sierpinski triangle is:<p>-if the currentSideLength is less than or equal to the minSideLength, then draw the     triangle. Note, the length of the triangle and the coordinates are doubles.     When you actually draw a triangle you will have to cast these to ints. (Base Case)<br>    -else create (not draw) three smaller Sierpinski triangles that are half the size of the     original by making three recursive calls to drawTriangle. In the recursive 
+case you don't draw anything with the graphics objects. The lower left corners of these three triangles are located at<ol>      <li>the original x1, y1.</li>      <li>the midpoint of the line segment going from x1, y1 to the top of the       triangle</li>      <li>the midpoint of the horizontal line segment starting at x1, y1.</li>      </ol>      <p><img border="0" src="../../images/Recurs4.gif" width="612" height="401"><p>Use trigonometry to       determine the value of y2. The other coordinates are easy to figure out:<ul>        <li>x3 = x1 + 0.5 * length of side</li>        <li>y3 = y1</li>        <li>x2 = x1 + 0.25 * length of side</li>        </ul>        <p>        <img border="0" src="../../images/Recurs5.gif" width="777" height="495"><p>        y2 = y1 - sqrt(3) * length of side / 4.<p>When you reach the base case         you will use the        <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/awt/Graphics.html">        Graphics</a> object to actually draw the lines. The method passes     doubles until it reaches the base case when you will have to cast to int. <p>You can  use the        <code>drawLine</code> method on the graphics object passed as a 
+parameter to draw the outline of the &quot;small&quot;         triangle. The <code>drawLine</code> method accepts 4 ints, which are the         endpoints of the line segment to draw. Alternatively, you may use the        <code>fillPolygon</code> method. Either approach is acceptable. The examples         above just draw the outlines of the triangles. here are example of         filling the polygons. Here are some examples with the triangles filled         in.<p>minSideLength = 100<p>        <img border="0" src="../../images/Recurs6.jpg" width="403" height="445"><p>minSideLength = 15<p>        <img border="0" src="../../images/Recurs7.jpg" width="402" height="446"><p><u><b>8. Sierpinksi Carpet</b></u><p>Create a method to draw a    <a href="http://en.wikipedia.org/wiki/Sierpinski_carpet">Sierpinski carpet.</a>     Here is an example:<p><img border="0" src="../../images/Recurs3.jpg" width="605" height="646"><p>The carpet is created via the following algorithm. <p>- if the length of the square is less than or equal to the limit value do nothing.<br>- else (the length of the square must be greater than the limit value) divide the square into a 3 by 3 grid which will contain 9 sub squares. &quot;Cut out&quot; the middle square and then create a Sierpenski carpet in the 8 remaining sub squares.<br>&nbsp;<p>    <img border="0" src="../../images/Recurs2.gif" width="484" height="170"><p>The middle square is &quot;cut     out&quot; by drawing a white rectangle. <br>    <br>    I have provided the starter method. You must supply the method to complete     the carpet. The header for the method to actually draw the carpet is:<p>&nbsp;<code>private     static void drawSquares(Graphics g, int size, int limit, double x, double y)</code><br>    <br>    You will need to use the fillRect method from the Graphics class. Here is     its signature.<br>    <br>    <code>fillRect(int x, int y, int width, int height) <br>&nbsp;&nbsp;&nbsp; Fills the specified rectangle.</code><br>    <br>    Recall point 0, 0 is at the top, left of the drawing panel and y increases     as you go down (not up).<p>You will complete the following method.<p><code>    public static void drawSquares(Graphics g, int size, int limit, double x,     double y){</code><p>Again, the x and y coordinates are passed as doubles.     When you call the fillRect method you will have to cast them to ints.<p>As       in the Sierpinski triangle problem you may get some round off errors. That       is okay. <p><u><b>9. SudokoSolver</b></u><p>Complete a method that solves 
+a given Sudoko puzzle. The public method is <p><code>public static int[][] 
+getSudokoSolution(int[][] startBoard) {</code><p>The starting board must be a 9 
+by 9 matrix that only contains values 0 through 9. Cells that store a zero are 
+open cells that must be filled in with a value between 1 and 9. Cells in <code>
+startBoard</code> that store a value between 1 and 9 may not be changed.<p>I 
+have provided all of the non recursive methods you need to do the checking. In 
+particular the <code>digitsOkay</code> method determines if there are any 
+repeats of values between 1 and 9 in any rows, columns, or mini matrices.<p>You 
+just write the recursive solver and call it from the <code>getSudokoSolution
+</code>method.<hr><p><b>Other famous problems with recursive solutions:</b> These are not required but if you are interested in more recursive problems consider the follow.</p><ul>      <li><a href="http://en.wikipedia.org/wiki/Knight's_tour">Knight's tour</a></li>      <li><a href="http://en.wikipedia.org/wiki/Koch_snowflake">Koch snowflake</a></li>      <li><a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">Towers of Hanoi</a></li>      <li><a href="http://en.wikipedia.org/wiki/Knapsack_problem">Knapsack       problem</a></li>    </ul>
+    <hr>
+
+    <p align="center">&nbsp; <a href="../index.htm">Back to the CS 314 homepage.</a></body></html>

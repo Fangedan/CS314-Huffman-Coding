@@ -1,0 +1,58 @@
+--- Preprocess Compress Information ----
+Time for pre-compression (seconds): 0.0397408
+Uncompressed file size: 8000016
+Compressed file size: 4070342
+Bits saved: 3929674
+
+/ TABLE OF FILE VALUES \
+value: 46, equivelant char: ., frequency: 1, new code: 000000
+value: 48, equivelant char: 0, frequency: 62522, new code: 1000
+value: 49, equivelant char: 1, frequency: 62385, new code: 0011
+value: 50, equivelant char: 2, frequency: 62644, new code: 1100
+value: 51, equivelant char: 3, frequency: 62433, new code: 0101
+value: 52, equivelant char: 4, frequency: 62235, new code: 0001
+value: 53, equivelant char: 5, frequency: 62649, new code: 1101
+value: 54, equivelant char: 6, frequency: 62545, new code: 1001
+value: 55, equivelant char: 7, frequency: 62515, new code: 0111
+value: 56, equivelant char: 8, frequency: 62459, new code: 0110
+value: 57, equivelant char: 9, frequency: 62699, new code: 1110
+value: 97, equivelant char: a, frequency: 62070, new code: 00001
+value: 98, equivelant char: b, frequency: 62345, new code: 0010
+value: 99, equivelant char: c, frequency: 62621, new code: 1010
+value: 100, equivelant char: d, frequency: 62829, new code: 1111
+value: 101, equivelant char: e, frequency: 62415, new code: 0100
+value: 102, equivelant char: f, frequency: 62635, new code: 1011
+value: 256, equivelant char: ?, frequency: 1, new code: 000001
+
+
+--- Compress Information ----
+Time for compression (seconds): 0.07419
+Number of bits written: 4070342
+
+--- Pre-uncompress Information ----
+Time for pre-uncompression (seconds): 0.0087862
+
+/ TABLE OF FILE VALUES \
+value: 46, equivelant char: ., new code: 000000
+value: 48, equivelant char: 0, new code: 1000
+value: 49, equivelant char: 1, new code: 0011
+value: 50, equivelant char: 2, new code: 1100
+value: 51, equivelant char: 3, new code: 0101
+value: 52, equivelant char: 4, new code: 0001
+value: 53, equivelant char: 5, new code: 1101
+value: 54, equivelant char: 6, new code: 1001
+value: 55, equivelant char: 7, new code: 0111
+value: 56, equivelant char: 8, new code: 0110
+value: 57, equivelant char: 9, new code: 1110
+value: 97, equivelant char: a, new code: 00001
+value: 98, equivelant char: b, new code: 0010
+value: 99, equivelant char: c, new code: 1010
+value: 100, equivelant char: d, new code: 1111
+value: 101, equivelant char: e, new code: 0100
+value: 102, equivelant char: f, new code: 1011
+value: 256, equivelant char: ?, new code: 000001
+
+
+--- Uncompress Information ----
+Time for uncompression (seconds): 2.7014497
+Bits written to file: 8000016

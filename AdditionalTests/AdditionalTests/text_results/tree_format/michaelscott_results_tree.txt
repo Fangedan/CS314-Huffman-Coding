@@ -1,0 +1,271 @@
+--- Preprocess Compress Information ----
+Time for pre-compression (seconds): 0.032123
+Uncompressed file size: 1052520
+Compressed file size: 684299
+Bits saved: 368221
+
+/ TABLE OF FILE VALUES \
+value: 32, equivelant char:  , frequency: 11756, new code: 001
+value: 33, equivelant char: !, frequency: 33, new code: 011011111111
+value: 34, equivelant char: ", frequency: 4478, new code: 10101
+value: 35, equivelant char: #, frequency: 99, new code: 0001110110
+value: 36, equivelant char: $, frequency: 6, new code: 101001010111110
+value: 37, equivelant char: %, frequency: 317, new code: 111000000
+value: 38, equivelant char: &, frequency: 208, new code: 010001010
+value: 39, equivelant char: ', frequency: 165, new code: 1110010010
+value: 40, equivelant char: (, frequency: 368, new code: 111001100
+value: 41, equivelant char: ), frequency: 368, new code: 111001101
+value: 42, equivelant char: *, frequency: 5, new code: 101001010111100
+value: 43, equivelant char: +, frequency: 114, new code: 0100101001
+value: 44, equivelant char: ,, frequency: 785, new code: 0001111
+value: 45, equivelant char: -, frequency: 1100, new code: 1010001
+value: 46, equivelant char: ., frequency: 1051, new code: 1000111
+value: 47, equivelant char: /, frequency: 2474, new code: 110000
+value: 48, equivelant char: 0, frequency: 515, new code: 10001100
+value: 49, equivelant char: 1, frequency: 427, new code: 01000110
+value: 50, equivelant char: 2, frequency: 455, new code: 01001011
+value: 51, equivelant char: 3, frequency: 309, new code: 101110101
+value: 52, equivelant char: 4, frequency: 114, new code: 0100101010
+value: 53, equivelant char: 5, frequency: 163, new code: 1110010001
+value: 54, equivelant char: 6, frequency: 138, new code: 1010010100
+value: 55, equivelant char: 7, frequency: 115, new code: 0100101011
+value: 56, equivelant char: 8, frequency: 213, new code: 010001011
+value: 57, equivelant char: 9, frequency: 169, new code: 1110010011
+value: 58, equivelant char: :, frequency: 504, new code: 01101101
+value: 59, equivelant char: ;, frequency: 316, new code: 101110111
+value: 60, equivelant char: <, frequency: 2507, new code: 110010
+value: 61, equivelant char: =, frequency: 1949, new code: 011010
+value: 62, equivelant char: >, frequency: 2507, new code: 110011
+value: 63, equivelant char: ?, frequency: 55, new code: 01001010001
+value: 64, equivelant char: @, frequency: 9, new code: 10100101010011
+value: 65, equivelant char: A, frequency: 297, new code: 101110100
+value: 66, equivelant char: B, frequency: 241, new code: 011011001
+value: 67, equivelant char: C, frequency: 370, new code: 00011100
+value: 68, equivelant char: D, frequency: 320, new code: 111000001
+value: 69, equivelant char: E, frequency: 153, new code: 1011101100
+value: 70, equivelant char: F, frequency: 238, new code: 011011000
+value: 71, equivelant char: G, frequency: 127, new code: 0110111100
+value: 72, equivelant char: H, frequency: 258, new code: 100011010
+value: 73, equivelant char: I, frequency: 146, new code: 1010010110
+value: 74, equivelant char: J, frequency: 146, new code: 1010010111
+value: 75, equivelant char: K, frequency: 26, new code: 000111011111
+value: 76, equivelant char: L, frequency: 157, new code: 1011101101
+value: 77, equivelant char: M, frequency: 551, new code: 10100100
+value: 78, equivelant char: N, frequency: 128, new code: 0110111101
+value: 79, equivelant char: O, frequency: 355, new code: 111001010
+value: 80, equivelant char: P, frequency: 267, new code: 100011011
+value: 81, equivelant char: Q, frequency: 16, new code: 0110111111100
+value: 82, equivelant char: R, frequency: 162, new code: 1110010000
+value: 83, equivelant char: S, frequency: 505, new code: 01101110
+value: 84, equivelant char: T, frequency: 659, new code: 11100001
+value: 85, equivelant char: U, frequency: 96, new code: 0001110100
+value: 86, equivelant char: V, frequency: 88, new code: 11100101110
+value: 87, equivelant char: W, frequency: 177, new code: 1110010110
+value: 88, equivelant char: X, frequency: 1, new code: 10100101010001010
+value: 89, equivelant char: Y, frequency: 37, new code: 101001010110
+value: 90, equivelant char: Z, frequency: 24, new code: 000111011110
+value: 91, equivelant char: [, frequency: 64, new code: 01101111100
+value: 92, equivelant char: \, frequency: 34, new code: 101001010101
+value: 93, equivelant char: ], frequency: 64, new code: 01101111101
+value: 94, equivelant char: ^, frequency: 13, new code: 0100101000000
+value: 95, equivelant char: _, frequency: 1076, new code: 1010000
+value: 97, equivelant char: a, frequency: 8045, new code: 0111
+value: 98, equivelant char: b, frequency: 1170, new code: 1010011
+value: 99, equivelant char: c, frequency: 3730, new code: 01100
+value: 100, equivelant char: d, frequency: 2904, new code: 00010
+value: 101, equivelant char: e, frequency: 11149, new code: 1111
+value: 102, equivelant char: f, frequency: 2464, new code: 101111
+value: 103, equivelant char: g, frequency: 1536, new code: 000110
+value: 104, equivelant char: h, frequency: 4073, new code: 10000
+value: 105, equivelant char: i, frequency: 8496, new code: 1001
+value: 106, equivelant char: j, frequency: 98, new code: 0001110101
+value: 107, equivelant char: k, frequency: 1205, new code: 1011100
+value: 108, equivelant char: l, frequency: 4874, new code: 10110
+value: 109, equivelant char: m, frequency: 2014, new code: 100010
+value: 110, equivelant char: n, frequency: 5587, new code: 11101
+value: 111, equivelant char: o, frequency: 5089, new code: 11010
+value: 112, equivelant char: p, frequency: 2491, new code: 110001
+value: 113, equivelant char: q, frequency: 46, new code: 111001011110
+value: 114, equivelant char: r, frequency: 5209, new code: 11011
+value: 115, equivelant char: s, frequency: 5703, new code: 0000
+value: 116, equivelant char: t, frequency: 7569, new code: 0101
+value: 117, equivelant char: u, frequency: 1632, new code: 010000
+value: 118, equivelant char: v, frequency: 901, new code: 0100100
+value: 119, equivelant char: w, frequency: 1813, new code: 010011
+value: 120, equivelant char: x, frequency: 397, new code: 01000100
+value: 121, equivelant char: y, frequency: 1327, new code: 1110001
+value: 122, equivelant char: z, frequency: 64, new code: 01101111110
+value: 123, equivelant char: {, frequency: 49, new code: 111001011111
+value: 124, equivelant char: |, frequency: 6, new code: 101001010111111
+value: 125, equivelant char: }, frequency: 49, new code: 00011101110
+value: 128, equivelant char: ?, frequency: 14, new code: 0100101000011
+value: 129, equivelant char: ?, frequency: 3, new code: 1010010101111011
+value: 130, equivelant char: ?, frequency: 2, new code: 0100101000010011
+value: 131, equivelant char: ?, frequency: 1, new code: 10100101010001011
+value: 144, equivelant char: ?, frequency: 4, new code: 011011111110110
+value: 147, equivelant char: ?, frequency: 8, new code: 01101111111010
+value: 148, equivelant char: ?, frequency: 1, new code: 10100101010001100
+value: 156, equivelant char: ?, frequency: 1, new code: 10100101010001101
+value: 160, equivelant char:  , frequency: 1, new code: 10100101010001110
+value: 161, equivelant char: ¡, frequency: 1, new code: 10100101010001111
+value: 167, equivelant char: §, frequency: 2, new code: 1010010101000000
+value: 169, equivelant char: ©, frequency: 1, new code: 10100101010010000
+value: 174, equivelant char: ®, frequency: 1, new code: 10100101010010001
+value: 175, equivelant char: ¯, frequency: 1, new code: 10100101010010010
+value: 176, equivelant char: °, frequency: 2, new code: 1010010101000001
+value: 177, equivelant char: ±, frequency: 1, new code: 10100101010010011
+value: 181, equivelant char: µ, frequency: 1, new code: 10100101010010100
+value: 182, equivelant char: ¶, frequency: 1, new code: 10100101010010101
+value: 184, equivelant char: ¸, frequency: 1, new code: 10100101010010110
+value: 185, equivelant char: ¹, frequency: 2, new code: 1010010101000010
+value: 186, equivelant char: º, frequency: 3, new code: 010010100001000
+value: 187, equivelant char: », frequency: 1, new code: 10100101010010111
+value: 189, equivelant char: ½, frequency: 1, new code: 10100101011110100
+value: 190, equivelant char: ¾, frequency: 2, new code: 1010010101000011
+value: 191, equivelant char: ¿, frequency: 1, new code: 10100101011110101
+value: 194, equivelant char: Â, frequency: 2, new code: 1010010101000100
+value: 195, equivelant char: Ã, frequency: 4, new code: 011011111110111
+value: 208, equivelant char: Ð, frequency: 18, new code: 1010010101110
+value: 209, equivelant char: Ñ, frequency: 7, new code: 01001010000101
+value: 226, equivelant char: â, frequency: 13, new code: 0100101000001
+value: 256, equivelant char: ?, frequency: 1, new code: 0100101000010010
+
+
+--- Compress Information ----
+Time for compression (seconds): 0.0343493
+Number of bits written: 684299
+
+
+--- Pre-uncompress Information ----
+Time for pre-uncompression (seconds): 0.0095524
+
+/ TABLE OF FILE VALUES \
+value: 32, equivelant char:  , new code: 001
+value: 33, equivelant char: !, new code: 011011111111
+value: 34, equivelant char: ", new code: 10101
+value: 35, equivelant char: #, new code: 0001110110
+value: 36, equivelant char: $, new code: 101001010111110
+value: 37, equivelant char: %, new code: 111000000
+value: 38, equivelant char: &, new code: 010001010
+value: 39, equivelant char: ', new code: 1110010010
+value: 40, equivelant char: (, new code: 111001100
+value: 41, equivelant char: ), new code: 111001101
+value: 42, equivelant char: *, new code: 101001010111100
+value: 43, equivelant char: +, new code: 0100101001
+value: 44, equivelant char: ,, new code: 0001111
+value: 45, equivelant char: -, new code: 1010001
+value: 46, equivelant char: ., new code: 1000111
+value: 47, equivelant char: /, new code: 110000
+value: 48, equivelant char: 0, new code: 10001100
+value: 49, equivelant char: 1, new code: 01000110
+value: 50, equivelant char: 2, new code: 01001011
+value: 51, equivelant char: 3, new code: 101110101
+value: 52, equivelant char: 4, new code: 0100101010
+value: 53, equivelant char: 5, new code: 1110010001
+value: 54, equivelant char: 6, new code: 1010010100
+value: 55, equivelant char: 7, new code: 0100101011
+value: 56, equivelant char: 8, new code: 010001011
+value: 57, equivelant char: 9, new code: 1110010011
+value: 58, equivelant char: :, new code: 01101101
+value: 59, equivelant char: ;, new code: 101110111
+value: 60, equivelant char: <, new code: 110010
+value: 61, equivelant char: =, new code: 011010
+value: 62, equivelant char: >, new code: 110011
+value: 63, equivelant char: ?, new code: 01001010001
+value: 64, equivelant char: @, new code: 10100101010011
+value: 65, equivelant char: A, new code: 101110100
+value: 66, equivelant char: B, new code: 011011001
+value: 67, equivelant char: C, new code: 00011100
+value: 68, equivelant char: D, new code: 111000001
+value: 69, equivelant char: E, new code: 1011101100
+value: 70, equivelant char: F, new code: 011011000
+value: 71, equivelant char: G, new code: 0110111100
+value: 72, equivelant char: H, new code: 100011010
+value: 73, equivelant char: I, new code: 1010010110
+value: 74, equivelant char: J, new code: 1010010111
+value: 75, equivelant char: K, new code: 000111011111
+value: 76, equivelant char: L, new code: 1011101101
+value: 77, equivelant char: M, new code: 10100100
+value: 78, equivelant char: N, new code: 0110111101
+value: 79, equivelant char: O, new code: 111001010
+value: 80, equivelant char: P, new code: 100011011
+value: 81, equivelant char: Q, new code: 0110111111100
+value: 82, equivelant char: R, new code: 1110010000
+value: 83, equivelant char: S, new code: 01101110
+value: 84, equivelant char: T, new code: 11100001
+value: 85, equivelant char: U, new code: 0001110100
+value: 86, equivelant char: V, new code: 11100101110
+value: 87, equivelant char: W, new code: 1110010110
+value: 88, equivelant char: X, new code: 10100101010001010
+value: 89, equivelant char: Y, new code: 101001010110
+value: 90, equivelant char: Z, new code: 000111011110
+value: 91, equivelant char: [, new code: 01101111100
+value: 92, equivelant char: \, new code: 101001010101
+value: 93, equivelant char: ], new code: 01101111101
+value: 94, equivelant char: ^, new code: 0100101000000
+value: 95, equivelant char: _, new code: 1010000
+value: 97, equivelant char: a, new code: 0111
+value: 98, equivelant char: b, new code: 1010011
+value: 99, equivelant char: c, new code: 01100
+value: 100, equivelant char: d, new code: 00010
+value: 101, equivelant char: e, new code: 1111
+value: 102, equivelant char: f, new code: 101111
+value: 103, equivelant char: g, new code: 000110
+value: 104, equivelant char: h, new code: 10000
+value: 105, equivelant char: i, new code: 1001
+value: 106, equivelant char: j, new code: 0001110101
+value: 107, equivelant char: k, new code: 1011100
+value: 108, equivelant char: l, new code: 10110
+value: 109, equivelant char: m, new code: 100010
+value: 110, equivelant char: n, new code: 11101
+value: 111, equivelant char: o, new code: 11010
+value: 112, equivelant char: p, new code: 110001
+value: 113, equivelant char: q, new code: 111001011110
+value: 114, equivelant char: r, new code: 11011
+value: 115, equivelant char: s, new code: 0000
+value: 116, equivelant char: t, new code: 0101
+value: 117, equivelant char: u, new code: 010000
+value: 118, equivelant char: v, new code: 0100100
+value: 119, equivelant char: w, new code: 010011
+value: 120, equivelant char: x, new code: 01000100
+value: 121, equivelant char: y, new code: 1110001
+value: 122, equivelant char: z, new code: 01101111110
+value: 123, equivelant char: {, new code: 111001011111
+value: 124, equivelant char: |, new code: 101001010111111
+value: 125, equivelant char: }, new code: 00011101110
+value: 128, equivelant char: ?, new code: 0100101000011
+value: 129, equivelant char: ?, new code: 1010010101111011
+value: 130, equivelant char: ?, new code: 0100101000010011
+value: 131, equivelant char: ?, new code: 10100101010001011
+value: 144, equivelant char: ?, new code: 011011111110110
+value: 147, equivelant char: ?, new code: 01101111111010
+value: 148, equivelant char: ?, new code: 10100101010001100
+value: 156, equivelant char: ?, new code: 10100101010001101
+value: 160, equivelant char:  , new code: 10100101010001110
+value: 161, equivelant char: ¡, new code: 10100101010001111
+value: 167, equivelant char: §, new code: 1010010101000000
+value: 169, equivelant char: ©, new code: 10100101010010000
+value: 174, equivelant char: ®, new code: 10100101010010001
+value: 175, equivelant char: ¯, new code: 10100101010010010
+value: 176, equivelant char: °, new code: 1010010101000001
+value: 177, equivelant char: ±, new code: 10100101010010011
+value: 181, equivelant char: µ, new code: 10100101010010100
+value: 182, equivelant char: ¶, new code: 10100101010010101
+value: 184, equivelant char: ¸, new code: 10100101010010110
+value: 185, equivelant char: ¹, new code: 1010010101000010
+value: 186, equivelant char: º, new code: 010010100001000
+value: 187, equivelant char: », new code: 10100101010010111
+value: 189, equivelant char: ½, new code: 10100101011110100
+value: 190, equivelant char: ¾, new code: 1010010101000011
+value: 191, equivelant char: ¿, new code: 10100101011110101
+value: 194, equivelant char: Â, new code: 1010010101000100
+value: 195, equivelant char: Ã, new code: 011011111110111
+value: 208, equivelant char: Ð, new code: 1010010101110
+value: 209, equivelant char: Ñ, new code: 01001010000101
+value: 226, equivelant char: â, new code: 0100101000001
+value: 256, equivelant char: ?, new code: 0100101000010010
+
+
+--- Uncompress Information ----
+Time for uncompression (seconds): 0.3923859
+Bits written to file: 1052520
