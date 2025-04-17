@@ -1,0 +1,108 @@
+Frequencies and codes for the CIA 
+
+value: 10, value as char: , (linefeed which is newline on MAC / Linux) frequency: 394110, new code 11010
+value: 32, value as char:  , frequency: 1737912, new code 00
+value: 33, value as char: !, frequency: 19, new code 011011110111100110
+value: 34, value as char: ", frequency: 1006, new code 0110111101101
+value: 35, value as char: #, frequency: 15, new code 011011110111100000
+value: 36, value as char: $, frequency: 8641, new code 0110111100
+value: 37, value as char: %, frequency: 28117, new code 111101100
+value: 38, value as char: &, frequency: 13, new code 0110111101111001110
+value: 39, value as char: ', frequency: 4535, new code 01101111010
+value: 40, value as char: (, frequency: 68841, new code 0110101
+value: 41, value as char: ), frequency: 68862, new code 0110110
+value: 42, value as char: *, frequency: 468, new code 011011110111101
+value: 43, value as char: +, frequency: 491, new code 01101111011001
+value: 44, value as char: ,, frequency: 151032, new code 100011
+value: 45, value as char: -, frequency: 36417, new code 01101110
+value: 46, value as char: ., frequency: 82365, new code 1001011
+value: 47, value as char: /, frequency: 12220, new code 1111000000
+value: 48, value as char: 0, frequency: 208965, new code 111001
+value: 49, value as char: 1, frequency: 94328, new code 1100001
+value: 50, value as char: 2, frequency: 110382, new code 1111010
+value: 51, value as char: 3, frequency: 46716, new code 11000110
+value: 52, value as char: 4, frequency: 44547, new code 10110100
+value: 53, value as char: 5, frequency: 45015, new code 10110101
+value: 54, value as char: 6, frequency: 42401, new code 10110001
+value: 55, value as char: 7, frequency: 54625, new code 11110011
+value: 56, value as char: 8, frequency: 43998, new code 10110010
+value: 57, value as char: 9, frequency: 41693, new code 10110000
+value: 58, value as char: :, frequency: 81809, new code 1001010
+value: 59, value as char: ;, frequency: 25199, new code 111100001
+value: 61, value as char: =, frequency: 34154, new code 01101001
+value: 63, value as char: ?, frequency: 38, new code 01101111011110010
+value: 64, value as char: @, frequency: 479, new code 01101111011000
+value: 65, value as char: A, frequency: 51854, new code 11110001
+value: 66, value as char: B, frequency: 19020, new code 100100000
+value: 67, value as char: C, frequency: 40219, new code 10010010
+value: 68, value as char: D, frequency: 27946, new code 111100101
+value: 69, value as char: E, frequency: 24833, new code 110001111
+value: 70, value as char: F, frequency: 16489, new code 011010000
+value: 71, value as char: G, frequency: 18866, new code 011011111
+value: 72, value as char: H, frequency: 11092, new code 1011001110
+value: 73, value as char: I, frequency: 39625, new code 10010001
+value: 74, value as char: J, frequency: 9662, new code 1001001110
+value: 75, value as char: K, frequency: 10990, new code 1001001111
+value: 76, value as char: L, frequency: 17619, new code 011010001
+value: 77, value as char: M, frequency: 29885, new code 01100100
+value: 78, value as char: N, frequency: 32191, new code 01100101
+value: 79, value as char: O, frequency: 20620, new code 100100110
+value: 80, value as char: P, frequency: 33487, new code 01100110
+value: 81, value as char: Q, frequency: 969, new code 01101111011111
+value: 82, value as char: R, frequency: 19237, new code 100100001
+value: 83, value as char: S, frequency: 45232, new code 10110110
+value: 84, value as char: T, frequency: 23935, new code 110001110
+value: 85, value as char: U, frequency: 21670, new code 101100110
+value: 86, value as char: V, frequency: 6836, new code 11110010001
+value: 87, value as char: W, frequency: 12786, new code 1111000001
+value: 88, value as char: X, frequency: 1083, new code 0110111101110
+value: 89, value as char: Y, frequency: 2809, new code 111100100000
+value: 90, value as char: Z, frequency: 3213, new code 111100100001
+value: 91, value as char: [, frequency: 5683, new code 10110011111
+value: 93, value as char: ], frequency: 5679, new code 10110011110
+value: 94, value as char: ^, frequency: 37, new code 01101111011110001
+value: 97, value as char: a, frequency: 547073, new code 0111
+value: 98, value as char: b, frequency: 91539, new code 1100000
+value: 99, value as char: c, frequency: 197213, new code 110011
+value: 100, value as char: d, frequency: 194732, new code 110010
+value: 101, value as char: e, frequency: 670695, new code 1010
+value: 102, value as char: f, frequency: 101469, new code 1110000
+value: 103, value as char: g, frequency: 101606, new code 1110001
+value: 104, value as char: h, frequency: 149495, new code 100010
+value: 105, value as char: i, frequency: 454756, new code 0100
+value: 106, value as char: j, frequency: 6883, new code 11110110100
+value: 107, value as char: k, frequency: 33783, new code 01100111
+value: 108, value as char: l, frequency: 280088, new code 10000
+value: 109, value as char: m, frequency: 171041, new code 100111
+value: 110, value as char: n, frequency: 448985, new code 11111
+value: 111, value as char: o, frequency: 422499, new code 11101
+value: 112, value as char: p, frequency: 119383, new code 011000
+value: 113, value as char: q, frequency: 7323, new code 11110110101
+value: 114, value as char: r, frequency: 408145, new code 11011
+value: 115, value as char: s, frequency: 352912, new code 10111
+value: 116, value as char: t, frequency: 458317, new code 0101
+value: 117, value as char: u, frequency: 167808, new code 100110
+value: 118, value as char: v, frequency: 61237, new code 11110111
+value: 119, value as char: w, frequency: 45630, new code 10110111
+value: 120, value as char: x, frequency: 14235, new code 1111011011
+value: 121, value as char: y, frequency: 94481, new code 1100010
+value: 122, value as char: z, frequency: 12891, new code 1111001001
+value: 124, value as char: |, frequency: 2, new code 011011110111100001010
+value: 176, value as char: °, frequency: 2, new code 011011110111100001011
+value: 200, value as char: È, frequency: 2, new code 011011110111100001100
+value: 201, value as char: É, frequency: 2, new code 011011110111100001101
+value: 224, value as char: à, frequency: 1, new code 0110111101111000011110
+value: 225, value as char: á, frequency: 8, new code 01101111011110011111
+value: 233, value as char: é, frequency: 4, new code 01101111011110000100
+value: 237, value as char: í, frequency: 6, new code 01101111011110011110
+value: 250, value as char: ú, frequency: 2, new code 011011110111100001110
+value: 256, value as char: ?, (this is the pseudo eof value) frequency: 1, new code 0110111101111000011111
+
+Binary Representation of tree: 
+space before each node and code (0 by itself indicates internal node, 1 by itself indicates leaf node)
+ 0 0 1 000100000 0 0 1 001101001 1 001110100 0 0 0 1 001110000 0 0 1 001001101 1 001001110 0 1 001010000 1 001101011 0 0 0 0 1 001000110 1 001001100 1 000111101 1 000101000 0 1 000101001 0 1 000101101 0 0 1 000100100 0 1 000100111 0 0 0 1 001000000 1 000101011 1 000100010 0 1 001011000 0 0 0 0 0 1 000100011 0 0 1 011101001 0 1 001111100 1 010110000 0 0 1 011001000 1 011001001 0 1 011111010 0 1 011100000 1 100000000 1 001011110 0 1 000111111 0 1 000100001 0 1 000100110 0 1 011101101 1 011100001 1 000101010 1 001010001 1 001000111 1 001100001 0 0 0 0 1 001101100 0 1 001101000 1 000101100 0 0 0 0 0 1 001000010 1 001010010 1 001001001 0 1 001000011 0 1 001001111 0 1 001001010 1 001001011 0 1 000111010 1 000101110 0 1 001110101 1 001101101 0 1 001100101 0 0 0 0 1 000111001 1 000110110 0 1 000111000 0 1 001010101 0 1 001001000 0 1 001011101 1 001011011 0 0 1 000110100 1 000110101 0 1 001010011 1 001110111 1 001110011 0 0 0 0 0 1 001100010 1 000110001 0 1 001111001 0 1 000110011 0 1 001010100 1 001000101 0 1 001100100 1 001100011 0 1 000001010 1 001110010 0 0 0 0 1 001100110 1 001100111 1 000110000 1 001101111 0 0 0 0 0 0 1 000101111 1 001010111 1 000111011 1 001000001 0 0 0 0 0 1 001011001 1 001011010 1 001010110 1 001111010 1 001000100 1 000110111 0 1 000110010 0 0 1 000100101 0 0 1 001101010 1 001110001 1 001111000 1 001110110 1 001101110
+NO SPACES WHEN WRITING TO FILE
+
+Same tree with the corresponding character instead of its code:
+ 0 0 1 space 0 0 1 i 1 t 0 0 0 1 p 0 0 1 M 1 N 0 1 P 1 k 0 0 0 0 1 F 1 L 1 = 1 ( 0 1 ) 0 1 - 0 0 1 $ 0 1 ' 0 0 0 1 @ 1 + 1 " 0 1 X 0 0 0 0 0 1 # 0 0 1 é 0 1 | 1 ° 0 0 1 È 1 É 0 1 ú 0 1 à 1 ? 1 ^ 0 1 ? 0 1 ! 0 1 & 0 1 í 1 á 1 * 1 Q 1 G 1 a 0 0 0 0 1 l 0 1 h 1 , 0 0 0 0 0 1 B 1 R 1 I 0 1 C 0 1 O 0 1 J 1 K 0 1 : 1 . 0 1 u 1 m 0 1 e 0 0 0 0 1 9 1 6 0 1 8 0 1 U 0 1 H 0 1 ] 1 [ 0 0 1 4 1 5 0 1 S 1 w 1 s 0 0 0 0 0 1 b 1 1 0 1 y 0 1 3 0 1 T 1 E 0 1 d 1 c 0 1 newline 1 r 0 0 0 0 1 f 1 g 1 0 1 o 0 0 0 0 0 0 1 / 1 W 1 ; 1 A 0 0 0 0 0 1 Y 1 Z 1 V 1 z 1 D 1 7 0 1 2 0 0 1 % 0 0 1 j 1 q 1 x 1 v 1 n
+

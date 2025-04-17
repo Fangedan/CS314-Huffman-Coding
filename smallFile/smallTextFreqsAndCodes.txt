@@ -1,0 +1,15 @@
+Frequencies and codes for file that contains Eerie eyes seen near lake.
+
+value: 32, value as char:  , frequency: 4, new code 011
+value: 46, value as char: ., frequency: 1, new code 11110
+value: 69, value as char: E, frequency: 1, new code 11111
+value: 97, value as char: a, frequency: 2, new code 0101
+value: 101, value as char: e, frequency: 8, new code 10
+value: 105, value as char: i, frequency: 1, new code 0000
+value: 107, value as char: k, frequency: 1, new code 0001
+value: 108, value as char: l, frequency: 1, new code 0010
+value: 110, value as char: n, frequency: 2, new code 1100
+value: 114, value as char: r, frequency: 2, new code 1101
+value: 115, value as char: s, frequency: 2, new code 1110
+value: 121, value as char: y, frequency: 1, new code 0011
+value: 256, value as char: This is the Pseudo-EOF character, frequency: 1, new code 0100
