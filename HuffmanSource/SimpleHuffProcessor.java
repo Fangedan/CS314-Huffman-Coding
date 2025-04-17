@@ -1,21 +1,21 @@
 /*  Student information for assignment:
  *
- *  On <MY|OUR> honor, <NAME1> (and <NAME2),
- *  this programming assignment is <MY|OUR> own work
- *  and <I|WE> have not provided this code to any other student.
+ *  On our honor, Vishal Vijayakumar and Andrew Lin,
+ *  this programming assignment is our own work
+ *  and we have not provided this code to any other student.
  *
  *  Number of slip days used:
  *
- *  Student 1:
- *  UTEID:
- *  email address:
+ *  Student 1: Vishal Vijayakumar
+ *  UTEID: vv8945
+ *  email address: vishal.vijayakumar@utexas.edu
  *
- *  Student 2:
- *  UTEID:
- *  email address:
+ *  Student 2: Andrew Lin
+ *  UTEID: al58444
+ *  email address: alin257274@utexas.edu
  *
- *  Grader name:
- *  Section number:
+ *  Grader name: Casey
+ *  Section number: 50760
  */
 
 import java.io.IOException;
@@ -47,7 +47,12 @@ public class SimpleHuffProcessor implements IHuffProcessor {
         showString("Not working yet");
         myViewer.update("Still not working");
         throw new IOException("preprocess not implemented");
-        //return 0;
+        int numBits = 0;
+        BitInputStream bitSc = new BitInputStream(in);
+        while(bitSc.readBits(1) != -1){
+            numBits++;
+        }
+        return numBits;
     }
 
     /**
