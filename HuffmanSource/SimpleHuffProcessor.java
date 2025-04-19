@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 public class SimpleHuffProcessor implements IHuffProcessor {
@@ -52,56 +53,64 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * @throws IOException if an error occurs while reading from the input file.
      */
     public int preprocessCompress(InputStream in, int headerFormat) throws IOException {
-        BitInputStream bitSc = new BitInputStream(in);
-        HashMap<Integer, Integer> freqMap = new HashMap<>();
-        myHeaderFormat = headerFormat;
+    BitInputStream bitSc = new BitInputStream(in);
+    Map<Integer,Integer> freqMap = new HashMap<>();
+    myHeaderFormat = headerFormat;
 
-        // Count frequency of each byte
-        int totalBeforeComp = 0;
-        int current = bitSc.read();
-        while (current != -1) {
-            freqMap.put(current, freqMap.getOrDefault(current, 0) + 1);
-            current = bitSc.read();
-            totalBeforeComp += IHuffConstants.BITS_PER_WORD;
-        }
-        bitSc.close();
-
-        // Add PSEUDO_EOF with frequency 1
-        freqMap.put(IHuffConstants.PSEUDO_EOF, 1);
-
-        TreeNodePriorityQueue pq = new TreeNodePriorityQueue();
-
-        // Create leaf nodes and add to priority queue
-        for (int key : freqMap.keySet()) {
-            pq.offer(new TreeNode(key, freqMap.get(key)));
-        }
-
-        // Build Huffman tree
-        while (pq.size() > 1) {
-            TreeNode left = pq.poll();
-            TreeNode right = pq.poll();
-            pq.offer(new TreeNode(left, -1, right));
-        }
-
-        TreeNode root = pq.poll(); // Huffman tree root
-        huffmanTreeRoot = root;
-
-        int totalBits = 0;
-
-        if (headerFormat == IHuffConstants.STORE_COUNTS) {
-            // MAGIC + FORMAT + 256 * frequencies
-            totalBits = IHuffConstants.BITS_PER_INT * (2 + IHuffConstants.ALPH_SIZE);
-        } else if (headerFormat == IHuffConstants.STORE_TREE) {
-            // MAGIC + FORMAT + treeSize + encoded tree
-            int treeBits = countTreeBits(root);
-            totalBits = IHuffConstants.BITS_PER_INT * 3 + treeBits;
-        }
-
-        myFreqMap = freqMap;
-        myBitsSaved = totalBeforeComp - totalBits;
-        return myBitsSaved;
-        //return totalBits;
+    // 1) Count original bits
+    int totalBeforeComp = 0;
+    int curr;
+    while ((curr = bitSc.read()) != -1) {
+        freqMap.put(curr, freqMap.getOrDefault(curr, 0) + 1);
+        totalBeforeComp += IHuffConstants.BITS_PER_WORD;
     }
+    bitSc.close();
+
+    // 2) Add PSEUDO_EOF
+    freqMap.put(IHuffConstants.PSEUDO_EOF, 1);
+
+    // 3) Build Huffman tree
+    TreeNodePriorityQueue pq = new TreeNodePriorityQueue();
+    for (Map.Entry<Integer,Integer> e : freqMap.entrySet()) {
+        pq.offer(new TreeNode(e.getKey(), e.getValue()));
+    }
+    while (pq.size() > 1) {
+        TreeNode left  = pq.poll();
+        TreeNode right = pq.poll();
+        pq.offer(new TreeNode(left, -1, right));
+    }
+    huffmanTreeRoot = pq.poll();
+    myFreqMap = freqMap;
+
+    // 4) Compute header bits
+    int headerBits;
+    if (headerFormat == IHuffConstants.STORE_COUNTS) {
+        headerBits = IHuffConstants.BITS_PER_INT * (2 + IHuffConstants.ALPH_SIZE);
+    } else {
+        headerBits = IHuffConstants.BITS_PER_INT * 2 + countTreeBits(huffmanTreeRoot);
+    }
+
+    // 5) Compute body bits
+    Map<Integer,String> codeMap = buildHuffmanCodingMap(huffmanTreeRoot);
+    int bodyBits = 0;
+    for (Map.Entry<Integer,Integer> entry : freqMap.entrySet()) {
+        bodyBits += entry.getValue() * codeMap.get(entry.getKey()).length();
+    }
+
+    // 6) Total bits to write
+    int totalBits = headerBits + bodyBits;
+
+    // 7) Bits saved
+    myBitsSaved = totalBeforeComp - totalBits;
+
+    // ** Report to the viewer **
+    showString("Original bits:    " + totalBeforeComp);
+    showString("Header+body bits: " + totalBits);
+    showString("Bits saved:       " + myBitsSaved);
+
+    return myBitsSaved;
+}
+
 
     // Helper method to count bits to encode tree in STORE_TREE format
     private int countTreeBits(TreeNode node) {
