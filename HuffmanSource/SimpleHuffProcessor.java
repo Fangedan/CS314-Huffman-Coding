@@ -86,8 +86,10 @@ public class SimpleHuffProcessor implements IHuffProcessor {
     int headerBits;
     if (headerFormat == IHuffConstants.STORE_COUNTS) {
         headerBits = IHuffConstants.BITS_PER_INT * (2 + IHuffConstants.ALPH_SIZE);
+        showString("Standard Count Format:");
     } else {
         headerBits = IHuffConstants.BITS_PER_INT * 2 + countTreeBits(huffmanTreeRoot);
+        showString("Standard Tree Format:");
     }
 
     // 5) Compute body bits
@@ -104,9 +106,8 @@ public class SimpleHuffProcessor implements IHuffProcessor {
     myBitsSaved = totalBeforeComp - totalBits;
 
     // ** Report to the viewer **
-    showString("Original bits:    " + totalBeforeComp);
-    showString("Header+body bits: " + totalBits);
-    showString("Bits saved:       " + myBitsSaved);
+    showString("preprocessCompress returns " + myBitsSaved);
+    showString("compress returns " + totalBits);
 
     return myBitsSaved;
 }
