@@ -88,7 +88,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
         headerBits = IHuffConstants.BITS_PER_INT * (2 + IHuffConstants.ALPH_SIZE);
         showString("Standard Count Format:");
     } else {
-        headerBits = IHuffConstants.BITS_PER_INT * 2 + countTreeBits(huffmanTreeRoot);
+        headerBits = IHuffConstants.BITS_PER_INT * 3 + countTreeBits(huffmanTreeRoot);
         showString("Standard Tree Format:");
     }
 
@@ -99,11 +99,16 @@ public class SimpleHuffProcessor implements IHuffProcessor {
         bodyBits += entry.getValue() * codeMap.get(entry.getKey()).length();
     }
 
+    showString("headerBits" + headerBits);
+    showString("bodyBits" + bodyBits);
+    showString("totalBeforeComp" + totalBeforeComp);  
     // 6) Total bits to write
     int totalBits = headerBits + bodyBits;
+    showString("totalBits" + totalBits); 
 
     // 7) Bits saved
     myBitsSaved = totalBeforeComp - totalBits;
+    showString("myBitsSaved" + myBitsSaved); 
 
     // ** Report to the viewer **
     showString("preprocessCompress returns " + myBitsSaved);
