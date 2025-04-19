@@ -1,3 +1,4 @@
+package HuffmanSource;
 
 public interface IHuffViewer {
 

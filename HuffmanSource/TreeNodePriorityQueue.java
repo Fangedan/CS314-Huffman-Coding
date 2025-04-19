@@ -1,3 +1,5 @@
+package HuffmanSource;
+
 /*  Student information for assignment:
  *
  *  On our honor, Vishal Vijayakumar and Andrew Lin,

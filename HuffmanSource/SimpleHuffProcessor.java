@@ -1,3 +1,5 @@
+package HuffmanSource;
+
 /*  Student information for assignment:
  *
  *  On our honor, Vishal Vijayakumar and Andrew Lin,
@@ -30,6 +32,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
     private TreeNode huffmanTreeRoot;
     private int myBitsSaved;
     private int myHeaderFormat;
+    private Map<Integer,Integer> myFreqMap;
 
     /**
      * Preprocess data so that compression is possible ---
@@ -94,6 +97,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
             totalBits = IHuffConstants.BITS_PER_INT * 3 + treeBits;
         }
 
+        myFreqMap = freqMap;
         myBitsSaved = totalBeforeComp - totalBits;
         return myBitsSaved;
         //return totalBits;
@@ -164,7 +168,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
         if (myBitsSaved < 0 && !force) {
             myViewer.update("Compression would enlarge file; skipping (use force=true to override).");
             return 0;
-        }
+        } 
         // build code map
         Map<Integer,String> codeMap = buildHuffmanCodingMap(huffmanTreeRoot);
 
@@ -271,6 +275,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
         int format = bitIn.readBits(IHuffConstants.BITS_PER_INT);
 
         // Rebuild the Huffman tree
+        TreeNode root = null;
         if (format == IHuffConstants.STORE_COUNTS) {
             // read 256 freqs
             int[] freqs = new int[IHuffConstants.ALPH_SIZE + 1];
@@ -292,7 +297,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
                 TreeNode r = pq.poll();
                 pq.offer(new TreeNode(l, -1, r));
             }
-            TreeNode root = pq.poll();
+            root = pq.poll();
 
         } else if (format == IHuffConstants.STORE_TREE) {
             root = readTree(bitIn);

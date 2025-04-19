@@ -1,3 +1,5 @@
+package HuffmanSource;
+
 import javax.swing.UIManager;
 
 /**

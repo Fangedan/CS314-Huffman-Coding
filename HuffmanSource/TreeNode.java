@@ -1,3 +1,4 @@
+package HuffmanSource;
 
 /**
  * Utility binary-tree (Huffman tree) node for Huffman coding.
