@@ -141,14 +141,15 @@ public class SimpleHuffProcessor implements IHuffProcessor {
     * @param map The map that will store int-to-code mappings.
     */
     private void buildCodingHelper(TreeNode node, String path, Map<Integer, String> map) {
-        if (node == null) return;
+    if (node != null) {
         if (node.isLeaf()) {
             map.put(node.getValue(), path);
-            return;
+        } else {
+            buildCodingHelper(node.getLeft(),  path + "0", map);
+            buildCodingHelper(node.getRight(), path + "1", map);
         }
-        buildCodingHelper(node.getLeft(), path + "0", map);
-        buildCodingHelper(node.getRight(), path + "1", map);
     }
+}
 
     /**
 	 * Compresses input to output, where the same InputStream has
@@ -168,8 +169,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
             throws IOException {
         // precondition
         if (huffmanTreeRoot == null) {
-            throw new IllegalStateException(
-                "Must call preprocessCompress(...) before compress(...)");
+            throw new IllegalStateException("Must call preprocessCompress(...) before compress(...)");
         }
         if (myBitsSaved < 0 && !force) {
             myViewer.update("Compression would enlarge file; skipping (use force=true to override).");
@@ -178,7 +178,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
         // build code map
         Map<Integer,String> codeMap = buildHuffmanCodingMap(huffmanTreeRoot);
 
-        BitInputStream  bitIn  = new BitInputStream(in);
+        BitInputStream bitIn = new BitInputStream(in);
         BitOutputStream bitOut = new BitOutputStream(out);
         int bitsWritten = 0;
 
