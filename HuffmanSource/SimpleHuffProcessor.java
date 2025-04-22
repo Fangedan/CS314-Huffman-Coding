@@ -53,81 +53,66 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * @throws IOException if an error occurs while reading from the input file.
      */
     public int preprocessCompress(InputStream in, int headerFormat) throws IOException {
-    BitInputStream bitSc = new BitInputStream(in);
-    Map<Integer,Integer> freqMap = new HashMap<>();
-    myHeaderFormat = headerFormat;
-
-    // 1) Count original bits
-    int totalBeforeComp = 0;
-    int curr;
-    while ((curr = bitSc.read()) != -1) {
-        freqMap.put(curr, freqMap.getOrDefault(curr, 0) + 1);
-        totalBeforeComp += IHuffConstants.BITS_PER_WORD;
-    }
-    bitSc.close();
-
-    // 2) Add PSEUDO_EOF
-    freqMap.put(IHuffConstants.PSEUDO_EOF, 1);
-
-    // 3) Build Huffman tree
-    TreeNodePriorityQueue pq = new TreeNodePriorityQueue();
-    for (Map.Entry<Integer,Integer> e : freqMap.entrySet()) {
-        pq.offer(new TreeNode(e.getKey(), e.getValue()));
-    }
-    while (pq.size() > 1) {
-        TreeNode left  = pq.poll();
-        TreeNode right = pq.poll();
-        pq.offer(new TreeNode(left, -1, right));
-    }
-    huffmanTreeRoot = pq.poll();
-    myFreqMap = freqMap;
-
-    // 4) Compute header bits
-    int headerBits;
-    if (headerFormat == IHuffConstants.STORE_COUNTS) {
-        headerBits = IHuffConstants.BITS_PER_INT * (2 + IHuffConstants.ALPH_SIZE);
-        showString("Standard Count Format:");
-    } else {
-        headerBits = IHuffConstants.BITS_PER_INT * 3 + countTreeBits(huffmanTreeRoot);
-        showString("Standard Tree Format:");
+        BitInputStream bitSc = new BitInputStream(in);
+        Map<Integer,Integer> freqMap = new HashMap<>();
+        myHeaderFormat = headerFormat;
+        int totalBeforeComp = 0;
+        int curr;
+        while ((curr = bitSc.read()) != -1) {
+            freqMap.put(curr, freqMap.getOrDefault(curr, 0) + 1);
+            totalBeforeComp += IHuffConstants.BITS_PER_WORD;
+        }
+        bitSc.close();
+        freqMap.put(IHuffConstants.PSEUDO_EOF, 1);
+        huffmanTreeRoot = buildTreeFromCounts(freqMap);
+        myFreqMap = freqMap;
+        int headerBits = 0;
+        if (headerFormat == IHuffConstants.STORE_COUNTS) {
+            headerBits = IHuffConstants.BITS_PER_INT * (2 + IHuffConstants.ALPH_SIZE);
+            showString("Standard Count Format:");
+        } else {
+            headerBits = IHuffConstants.BITS_PER_INT * 3 + countTreeBits(huffmanTreeRoot);
+            showString("Standard Tree Format:");
+        }
+        Map<Integer,String> codeMap = buildHuffmanCodingMap(huffmanTreeRoot);
+        int bodyBits = 0;
+        for (Map.Entry<Integer,Integer> entry : freqMap.entrySet()) {
+            bodyBits += entry.getValue() * codeMap.get(entry.getKey()).length();
+        } 
+        int totalBits = headerBits + bodyBits;
+        myBitsSaved = totalBeforeComp - totalBits;
+        return myBitsSaved;
     }
 
-    // 5) Compute body bits
-    Map<Integer,String> codeMap = buildHuffmanCodingMap(huffmanTreeRoot);
-    int bodyBits = 0;
-    for (Map.Entry<Integer,Integer> entry : freqMap.entrySet()) {
-        bodyBits += entry.getValue() * codeMap.get(entry.getKey()).length();
+    // Building huffman tree from storecounts helper variable
+    private TreeNode buildTreeFromCounts(Map<Integer,Integer> freqMap) {
+        TreeNodePriorityQueue pq = new TreeNodePriorityQueue();
+        for (int i = 0; i < IHuffConstants.ALPH_SIZE; i++) {
+            int f = freqMap.getOrDefault(i, 0);
+            if (f > 0) {
+                pq.offer(new TreeNode(i, f));
+            }
+        }
+        pq.offer(new TreeNode(IHuffConstants.PSEUDO_EOF,
+        		freqMap.getOrDefault(IHuffConstants.PSEUDO_EOF, 1)));
+        while (pq.size() > 1) {
+            TreeNode left  = pq.poll();
+            TreeNode right = pq.poll();
+            pq.offer(new TreeNode(left, -1, right));
+        }
+        return pq.poll();
     }
-
-    showString("headerBits" + headerBits);
-    showString("bodyBits" + bodyBits);
-    showString("totalBeforeComp" + totalBeforeComp);  
-    // 6) Total bits to write
-    int totalBits = headerBits + bodyBits;
-    showString("totalBits" + totalBits); 
-
-    // 7) Bits saved
-    myBitsSaved = totalBeforeComp - totalBits;
-    showString("myBitsSaved" + myBitsSaved); 
-
-    // ** Report to the viewer **
-    showString("preprocessCompress returns " + myBitsSaved);
-    showString("compress returns " + totalBits);
-
-    return myBitsSaved;
-}
-
 
     // Helper method to count bits to encode tree in STORE_TREE format
     private int countTreeBits(TreeNode node) {
         if (node.getLeft() == null && node.getRight() == null) {
-            return 10; // 1 bit for leaf + 9 bits for value
+            return 10;
         } else {
             return 1 + countTreeBits(node.getLeft()) + countTreeBits(node.getRight());
         }
     }
 
-    // Method to get the root if needed later
+    // Returns root
     public TreeNode getHuffmanTreeRoot() {
         return huffmanTreeRoot;
     }
@@ -150,15 +135,15 @@ public class SimpleHuffProcessor implements IHuffProcessor {
     * @param map The map that will store int-to-code mappings.
     */
     private void buildCodingHelper(TreeNode node, String path, Map<Integer, String> map) {
-    if (node != null) {
-        if (node.isLeaf()) {
-            map.put(node.getValue(), path);
-        } else {
-            buildCodingHelper(node.getLeft(),  path + "0", map);
-            buildCodingHelper(node.getRight(), path + "1", map);
+        if (node != null) {
+            if (node.isLeaf()) {
+                map.put(node.getValue(), path);
+            } else {
+                buildCodingHelper(node.getLeft(),  path + "0", map);
+                buildCodingHelper(node.getRight(), path + "1", map);
+            }
         }
     }
-}
 
     /**
 	 * Compresses input to output, where the same InputStream has
@@ -176,45 +161,33 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      */
     public int compress(InputStream in, OutputStream out, boolean force)
             throws IOException {
-        // precondition
         if (huffmanTreeRoot == null) {
-            throw new IllegalStateException("Must call preprocessCompress(...) before compress(...)");
+            throw new IllegalStateException("Must call preprocessCompress before compress");
         }
         if (myBitsSaved < 0 && !force) {
-            myViewer.update("Compression would enlarge file; skipping (use force=true to override).");
+            myViewer.update("Compression would enlarge file; skipping.");
             return 0;
         } 
-        // build code map
         Map<Integer,String> codeMap = buildHuffmanCodingMap(huffmanTreeRoot);
-
         BitInputStream bitIn = new BitInputStream(in);
         BitOutputStream bitOut = new BitOutputStream(out);
         int bitsWritten = 0;
-
-        // 1) MAGIC and FORMAT
         bitOut.writeBits(IHuffConstants.BITS_PER_INT,
                          IHuffConstants.MAGIC_NUMBER);
         bitOut.writeBits(IHuffConstants.BITS_PER_INT, myHeaderFormat);
         bitsWritten += 2 * IHuffConstants.BITS_PER_INT;
-
-        // 3) HEADER
         if (myHeaderFormat == IHuffConstants.STORE_COUNTS) {
-            // write 256 frequencies (one per value 0–255), then PSEUDO_EOF count
             for (int v = 0; v < IHuffConstants.ALPH_SIZE; v++) {
                 int freq = myFreqMap.getOrDefault(v, 0);
                 bitOut.writeBits(IHuffConstants.BITS_PER_INT, freq);
                 bitsWritten += IHuffConstants.BITS_PER_INT;
             }
-            // PSEUDO_EOF
             int eofFreq = myFreqMap.get(IHuffConstants.PSEUDO_EOF);
             bitOut.writeBits(IHuffConstants.BITS_PER_INT, eofFreq);
             bitsWritten += IHuffConstants.BITS_PER_INT;
-
-        } else { // STORE_TREE
+        } else { 
             bitsWritten += writeHeaderTree(huffmanTreeRoot, bitOut);
         }
-
-        // 4) BODY: for each 8‑bit chunk, emit one bit at a time
         int b;
         while ((b = bitIn.read()) != -1) {
             String code = codeMap.get(b);
@@ -223,14 +196,11 @@ public class SimpleHuffProcessor implements IHuffProcessor {
                 bitsWritten++;
             }
         }
-
-        // 5) PSEUDO_EOF
         String eofCode = codeMap.get(IHuffConstants.PSEUDO_EOF);
         for (char c : eofCode.toCharArray()) {
             bitOut.writeBits(1, c - '0');
             bitsWritten++;
         }
-
         bitIn.close();
         bitOut.close();
         return bitsWritten;
@@ -238,34 +208,22 @@ public class SimpleHuffProcessor implements IHuffProcessor {
 
     /**
      * Helper: writes the shape+leaves of the Huffman tree in pre‐order.
-     * Internal node → write a single 0 bit.
-     * Leaf node     → write a 1 bit, then (BITS_PER_WORD+1) bits of the value.
+     * Internal node: write a single 0 bit.
+     * Leaf node:write a 1 bit, then (BITS_PER_WORD+1) bits of the value.
      * Returns how many bits were written.
      */
     private int writeHeaderTree(TreeNode node, BitOutputStream out) throws IOException {
         if (node.isLeaf()) {
-            // leaf marker
             out.writeBits(1, 1);
-            // leaf value
             out.writeBits(IHuffConstants.BITS_PER_WORD + 1, node.getValue());
             return 1 + (IHuffConstants.BITS_PER_WORD + 1);
         } else {
-            // internal marker
             out.writeBits(1, 0);
-            // recurse left/right
             int leftBits  = writeHeaderTree(node.getLeft(), out);
             int rightBits = writeHeaderTree(node.getRight(), out);
             return 1 + leftBits + rightBits;
         }
     }
-
-        // String code = codeMap.get(value);
-        // for (int i = 0; i < code.length(); i++) {
-        //     int bit = code.charAt(i) - '0'; // converts '0' or '1' to int 0 or 1
-        //     out.writeBits(1, bit);
-        // }
-
-        //return 0;
 
     /**
      * Uncompress a previously compressed stream in, writing the
@@ -276,52 +234,37 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * @throws IOException if an error occurs while reading from the input file or
      * writing to the output file.
      */
-    public int uncompress(InputStream in, OutputStream out) throws IOException {
+    public int uncompress(InputStream in, OutputStream out) throws IOException {    
         BitInputStream  bitIn  = new BitInputStream(in);
         BitOutputStream bitOut = new BitOutputStream(out);
-
-        // Check magic number
         int magic = bitIn.readBits(IHuffConstants.BITS_PER_INT);
         if (magic != IHuffConstants.MAGIC_NUMBER) {
             throw new IOException("Input is not a valid .hf file");
         }
-
-        // Read header format
         int format = bitIn.readBits(IHuffConstants.BITS_PER_INT);
-
-        // Rebuild the Huffman tree
         TreeNode root = null;
         if (format == IHuffConstants.STORE_COUNTS) {
-            // read 256 freqs
             int[] freqs = new int[IHuffConstants.ALPH_SIZE + 1];
             for (int i = 0; i < IHuffConstants.ALPH_SIZE; i++) {
                 freqs[i] = bitIn.readBits(IHuffConstants.BITS_PER_INT);
             }
-            // PSEUDO_EOF count
             freqs[IHuffConstants.PSEUDO_EOF] = bitIn.readBits(IHuffConstants.BITS_PER_INT);
-
-            // rebuild same way as preprocessCompress
-            TreeNodePriorityQueue pq = new TreeNodePriorityQueue();
+            Map<Integer,Integer> freqMap = new HashMap<>();
             for (int i = 0; i < freqs.length; i++) {
                 if (freqs[i] > 0) {
-                    pq.offer(new TreeNode(i, freqs[i]));
+                    freqMap.put(i, freqs[i]);
                 }
             }
-            while (pq.size() > 1) {
-                TreeNode l = pq.poll();
-                TreeNode r = pq.poll();
-                pq.offer(new TreeNode(l, -1, r));
-            }
-            root = pq.poll();
-
+            root = buildTreeFromCounts(freqMap);
         } else if (format == IHuffConstants.STORE_TREE) {
-            root = readTree(bitIn);
-
+            int[] size = new int[1];
+            size[0] = bitIn.readBits(BITS_PER_INT);
+            TreeNode newNode = new TreeNode(-1,0);
+            System.out.println(size[0]);
+            root = readTree(bitIn, size, newNode);
         } else {
             throw new IOException("Unknown header format: " + format);
         }
-
-        // Decode the body
         int bitsWritten = 0;
         TreeNode node = root;
         boolean done = false;
@@ -330,28 +273,22 @@ public class SimpleHuffProcessor implements IHuffProcessor {
             if (bit == -1) {
                 throw new IOException("Unexpected end of input");
             }
-
-            // descend left or right
-            if (bit == 0) {
-                node = node.getLeft();
-            } else {
-                node = node.getRight();
-            }
-
-            // if we hit a leaf, decide whether to stop or output
             if (node.isLeaf()) {
                 int value = node.getValue();
                 if (value == IHuffConstants.PSEUDO_EOF) {
                     done = true;
                 } else {
-                    // write the original byte
                     bitOut.writeBits(IHuffConstants.BITS_PER_WORD, value);
                     bitsWritten += IHuffConstants.BITS_PER_WORD;
-                    node = root; // restart from the top
+                    node = root; 
                 }
             }
+            if (bit == 0) {
+                node = node.getLeft();
+            } else {
+                node = node.getRight();
+            }
         }
-
         bitIn.close();
         bitOut.close();
         return bitsWritten;
@@ -361,25 +298,31 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * Reconstructs a tree from a STORE_TREE header. 
      * 0‑bit = internal, 1‑bit + (BITS_PER_WORD+1) bits = leaf value.
      */
-    private TreeNode readTree(BitInputStream in) throws IOException {
+    private TreeNode readTree(BitInputStream in, int[] size, TreeNode newNode) throws IOException {
         int bit = in.readBits(1);
         if (bit == -1) {
             throw new IOException("Invalid tree header");
         }
+        if (size[0] == 0){
+            return null;
+        }
+        size[0]--;
         if (bit == 1) {
             int value = in.readBits(IHuffConstants.BITS_PER_WORD + 1);
-            return new TreeNode(value, 0);
+            newNode = new TreeNode(value, 0);
         } else {
-            TreeNode left  = readTree(in);
-            TreeNode right = readTree(in);
-            return new TreeNode(left, -1, right);
+            newNode.setLeft(readTree(in, size, new TreeNode(-1,0)));
+            newNode.setRight(readTree(in, size, new TreeNode(-1,0)));
         }
+        return newNode;
     }
 
+    // viewer method
     public void setViewer(IHuffViewer viewer) {
         myViewer = viewer;
     }
 
+    // show string viewer method
     private void showString(String s){
         if (myViewer != null) {
             myViewer.update(s);
