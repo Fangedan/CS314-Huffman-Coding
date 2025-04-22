@@ -20,88 +20,105 @@ package HuffmanSource;
  *  Section number: 50760
  */
 
-import java.util.*;
+import java.util.ArrayList;
 
-public class TreeNodePriorityQueue {
-    private static class NodeWrapper {
-        TreeNode node;
-        int order;
+public class TreeNodePriorityQueue<E extends Comparable<? super E>> {
+    private ArrayList<E> con;
 
-        NodeWrapper(TreeNode node, int order) {
-            this.node = node;
-            this.order = order;
-        }
-    }
-
-    private List<NodeWrapper> heap;
-    private int insertionCounter;
-
+    /**
+     * Creates an empty PriorityQueue314 object.
+     * pre: none
+     */
     public TreeNodePriorityQueue() {
-        heap = new ArrayList<>();
-        insertionCounter = 0;
+        con = new ArrayList<>();
     }
 
-    public void offer(TreeNode node) {
-        NodeWrapper wrapped = new NodeWrapper(node, insertionCounter++);
-        heap.add(wrapped);
-        siftUp(heap.size() - 1);
-    }
-
-    public TreeNode poll() {
-        if (heap.isEmpty()) return null;
-        NodeWrapper result = heap.get(0);
-        NodeWrapper last = heap.remove(heap.size() - 1);
-        if (!heap.isEmpty()) {
-            heap.set(0, last);
-            siftDown(0);
+    /**
+     * Adds data to its place in the queue sorted in ascending order.
+     * pre: data != null
+     * @param data the data to add to the queue.
+     */
+    public void enqueue(E data) {
+        if (data == null) {
+            throw new IllegalArgumentException("data must not be null");
         }
-        return result.node;
+        int index = findIndex(data);
+        con.add(index, data);
     }
 
+    /**
+     * Helper for enqueue, finds the index that enqueue must add data to.
+     * pre: data != null
+     * @param data the data to add to the queue.
+     * @return the index that data belongs in to maintain sorted ascending order.
+     */
+    private int findIndex(E data) {
+        if (data == null) {
+            throw new IllegalArgumentException("data must not be null");
+        }
+        for (int i = 0; i < con.size(); i++) {
+            if (con.get(i).compareTo(data) <= 0) {
+                return i;
+            }
+        }
+        return con.size();
+    }
+
+    /**
+     * pre: none
+     * @return the first element in the queue.
+     */
+    public E dequeue() {
+        if (isEmpty()) {
+            return null;
+        }
+        return con.remove(con.size() - 1);
+    }
+
+    /**
+     * Accesses first element in the queue.
+     * pre: none
+     * @return the first element in the queue.
+     */
+    public E front() {
+        if (isEmpty()) {
+            return null;
+        }
+        return con.get(con.size() - 1);
+    }
+
+    /**
+     * pre: none
+     * @return whether the queue is empty or not.
+     */
+    public boolean isEmpty() {
+        return con.size() == 0;
+    }
+
+    /**
+     * pre: none
+     * @return the size of the queue.
+     */
     public int size() {
-        return heap.size();
+        return con.size();
     }
 
-    private void siftUp(int idx) {
-        while (idx > 0) {
-            int parent = (idx - 1) / 2;
-            if (compare(heap.get(idx), heap.get(parent)) < 0) {
-                swap(idx, parent);
-                idx = parent;
-            } else break;
+    /**
+     * pre: none
+     * @return a String representation of the queue, in ascending order surrounded by square 
+     * brackets and separated by commas and spaces.
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = con.size() - 1; i > 0; i--) {
+            sb.append(con.get(i));
+            sb.append(", ");
         }
-    }
-
-    private void siftDown(int idx) {
-        int size = heap.size();
-        while (true) {
-            int left = 2 * idx + 1;
-            int right = 2 * idx + 2;
-            int smallest = idx;
-
-            if (left < size && compare(heap.get(left), heap.get(smallest)) < 0) {
-                smallest = left;
-            }
-            if (right < size && compare(heap.get(right), heap.get(smallest)) < 0) {
-                smallest = right;
-            }
-
-            if (smallest != idx) {
-                swap(idx, smallest);
-                idx = smallest;
-            } else break;
+        if (con.size() > 0) {
+            sb.append(con.get(0));
         }
-    }
+        sb.append("]");
 
-    private int compare(NodeWrapper a, NodeWrapper b) {
-        int freqDiff = a.node.getFrequency() - b.node.getFrequency();
-        if (freqDiff != 0) return freqDiff;
-        return a.order - b.order; // fair tiebreaking
-    }
-
-    private void swap(int i, int j) {
-        NodeWrapper temp = heap.get(i);
-        heap.set(i, heap.get(j));
-        heap.set(j, temp);
+        return sb.toString();
     }
 }
