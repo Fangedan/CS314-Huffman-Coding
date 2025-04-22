@@ -26,8 +26,8 @@ import java.io.OutputStream;
 
 public class SimpleHuffProcessor implements IHuffProcessor {
 
+    private Compression compress;
     private IHuffViewer myViewer;
-    private Compression compression;
 
     /**
      * Preprocess data so that compression is possible ---
@@ -47,8 +47,8 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * @throws IOException if an error occurs while reading from the input file.
      */
     public int preprocessCompress(InputStream in, int headerFormat) throws IOException {
-        compression = new Compression();
-        return compression.preCompress(in, headerFormat);
+        compress = new Compression();
+        return compress.preCompress(in, headerFormat);
     }
 
     /**
@@ -66,19 +66,14 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * writing to the output file.
      */
     public int compress(InputStream in, OutputStream out, boolean force) throws IOException {
-        if (compression == null) {
-            myViewer.showError("Run the preprocessCompress method prior to doing compression.");
-            throw new IllegalStateException("preprocessCompress must be called prior to using " +
-                    "this method.");
+        if (compress == null) {
+            throw new IllegalStateException("preprocessCompress has not been called");
         }
-        int bitsWritten = compression.compress(in, out, force);
-        if (bitsWritten < 0) {
-            myViewer.showError("Compressed file has " + (-1 * bitsWritten) + " more bits than " +
-                    "uncompressed file.\n" + "Select \"force compression\" option to compress.");
+        int bits = compress.compress(in, out, force);
+        if (bits < 0) {
             return -1;
         }
-
-        return bitsWritten;
+        return bits;
     }
 
     /**
@@ -91,18 +86,14 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * writing to the output file.
      */
     public int uncompress(InputStream in, OutputStream out) throws IOException {
-        Decompression decompression = new Decompression();
-        int decompressResult = decompression.decompress(in, out);
-        if (decompressResult == -1) {
-            myViewer.showError("Error reading compressed file. \n" +
-                    "File did not start with the huff magic number.");
+        Decompression decompress = new Decompression();
+        int output = decompress.decompress(in, out);
+        if (output == -1) {
             return -1;
-        } else if (decompressResult == Decompression.NO_PSEUDO_ERROR_CODE) {
-            myViewer.showError("Could not uncompress.\n java.io.IOException: Error reading " +
-                    "compressed file.\n Unexpected end of input. No PSEUDO_EOF character.");
+        } else if (output == Decompression.NO_PSEUDO_ERROR_CODE) {
+            myViewer.showError("java.io.IOException: Error reading compressed file.");
         }
-
-        return decompressResult;
+        return output;
     }
 
     public void setViewer(IHuffViewer viewer) {

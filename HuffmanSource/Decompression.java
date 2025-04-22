@@ -25,138 +25,142 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class Decompression implements IHuffConstants {
-    private TreeNode root;
+    private TreeNode huffRoot;
     public final static int NO_PSEUDO_ERROR_CODE = -2;
 
     /**
-     * Decompresses the input file and creates an output file.
-     * pre: none
-     * @param input the input stream.
-     * @param out the output stream.
-     * @returns the number of bits written to the output file.
+     * Reads a Huffman-compressed file, validates its format, rebuilds the tree,
+     * and decompresses the encoded data into the output stream.
+     * @param input the compressed input stream
+     * @param output the stream to write the decompressed data to
+     * @return number of bits written to output, or -1 for invalid input
+     * @throws IOException if there’s an error in reading or writing streams
      */
-    public int decompress(InputStream input, OutputStream out) throws IOException {
-        BitInputStream in = new BitInputStream(input);
-        int magic = in.readBits(BITS_PER_INT);
-        if (magic != MAGIC_NUMBER) {
-            in.close();
+    public int decompress(InputStream input, OutputStream output) throws IOException {
+        BitInputStream bitIn = new BitInputStream(input);
+        int num = bitIn.readBits(BITS_PER_INT);
+        if (num != MAGIC_NUMBER) {
+            bitIn.close();
             return -1;
         }
-        int headerFormat = in.readBits(BITS_PER_INT);
-        int bitsWritten = 0;
-        if (headerFormat == STORE_COUNTS) {
-            createCountsTree(in);
-        } else if (headerFormat == STORE_TREE) {
-            createTreeTree(in);
+        int formatType = bitIn.readBits(BITS_PER_INT);
+        int totalBitsWritten = 0;
+        if (formatType == STORE_COUNTS) {
+            buildTreeFromCounts(bitIn);
+        } else if (formatType == STORE_TREE) {
+            buildTreeFromStructure(bitIn);
         }
-        bitsWritten = readData(in, out, root);
-
-        return bitsWritten;
+        totalBitsWritten = decodeCompressedData(bitIn, output, huffRoot);
+        return totalBitsWritten;
     }
 
     /**
-     * Constructs the tree that builds the encodings for a Standard Tree Format file.
-     * pre: none
-     * @param in the bit input stream.
+     * Reconstructs the encoding tree from a compressed file's tree-based header format.
+     * Begins by reading the total number of bits used to represent the tree.
+     * @param in bit stream containing the serialized tree structure
+     * @throws IOException if reading the stream fails
      */
-    private void createTreeTree(BitInputStream in) throws IOException {
-        int numBits = in.readBits(BITS_PER_INT);
-        root = helper(in, new int[] {numBits}, new TreeNode(-1, 0));
+    private void buildTreeFromStructure(BitInputStream bitIn) throws IOException {
+        int treeBitCount = bitIn.readBits(BITS_PER_INT);
+        huffRoot = rebuildTree(bitIn, new int[] {treeBitCount}, new TreeNode(-1, 0));
     }
 
     /**
-     * Helper method that recursively constructs the tree that builds the encodings for a Standard
-     * Tree Format file.
-     * pre: none
-     * @param in the bit input stream.
-     * @param numBits which stores the amount of bits left in the compressed file.
-     * @param node the current node in the tree.
-     * @return node, the current node in the tree.
+     * Builds the Huffman tree from a tree-encoded bit stream using recursion.
+     * Leaf nodes are marked by a 1 followed by a value, and internal nodes by a 0,
+     * followed by their left and right subtrees.
+     *
+     * @param bitIn the bit input stream with the encoded tree
+     * @param bitsRemaining a mutable integer array tracking remaining bits to read
+     * @param currentNode the node currently being initialized or expanded
+     * @return the constructed node corresponding to this portion of the tree
+     * @throws IOException if reading from the bit stream fails
      */
-    private TreeNode helper(BitInputStream in, int[] numBits, TreeNode node) throws IOException {
-        if (numBits[0] == 0) {
+    private TreeNode rebuildTree(BitInputStream bitIn, int[] bitsRemaining, TreeNode currentNode) throws IOException {
+        if (bitsRemaining[0] == 0) {
             return null;
         }
-        int bit = in.readBits(1);
-        numBits[0]--;
-        if (bit == 1) {
-            node = new TreeNode(in.readBits(BITS_PER_WORD + 1), 0);
+        int nextBit = bitIn.readBits(1);
+        bitsRemaining[0]--;
+        if (nextBit == 1) {
+            currentNode = new TreeNode(bitIn.readBits(BITS_PER_WORD + 1), 0);
         } else {
-            node.setLeft(helper(in, numBits, new TreeNode(-1, 0)));
-            node.setRight(helper(in, numBits, new TreeNode(-1, 0)));
+            currentNode.setLeft(rebuildTree(bitIn, bitsRemaining, new TreeNode(-1, 0)));
+            currentNode.setRight(rebuildTree(bitIn, bitsRemaining, new TreeNode(-1, 0)));
         }
-        return node;
+        return currentNode;
     }
 
     /**
-     * Creates the tree that builds the encodings for a Standard Counts Format file.
-     * pre: none
-     * @param in the bit input stream.
+     * Constructs a Huffman tree based on character frequencies provided in the input stream.
+     * The frequencies are stored in a priority queue and used to generate the encoding tree.
+     *
+     * @param bitIn bit input stream with character count data
+     * @throws IOException if reading from the input stream fails
      */
-    private void createCountsTree(BitInputStream in) throws IOException {
-    	TreeNodePriorityQueue<TreeNode> pq = new TreeNodePriorityQueue<>();
+    private void buildTreeFromCounts(BitInputStream bitIn) throws IOException {
+        TreeNodePriorityQueue<TreeNode> nodeQueue = new TreeNodePriorityQueue<>();
         for (int i = 0; i < ALPH_SIZE; i++) {
-            int frequency = in.readBits(BITS_PER_INT);
-            if (frequency != 0) {
-                pq.enqueue(new TreeNode(i, frequency));
+            int charFreq = bitIn.readBits(BITS_PER_INT);
+            if (charFreq != 0) {
+                nodeQueue.enqueue(new TreeNode(i, charFreq));
             }
         }
-        pq.enqueue(new TreeNode(PSEUDO_EOF, 1));
-
-        root = generateTree(pq);
+        nodeQueue.enqueue(new TreeNode(PSEUDO_EOF, 1));
+        huffRoot = constructTree(nodeQueue);
     }
 
     /**
-     * Reads the data from the compressed file and uses the tree to write the decompressed 
-     * output file.
-     * pre: none
-     * @param in the bit input stream.
-     * @param output the output stream.
-     * @param node the current node in the tree used to read encodings.
-     * @returns the number of bits written to the output file.
+     * Uses the Huffman tree to decode a stream of compressed bits into raw characters,
+     * writing the result to the output stream. Ends decoding when PSEUDO_EOF is reached.
+     *
+     * @param bitIn the bit input stream of the compressed data
+     * @param bitOut the output stream to write decoded characters
+     * @param currentNode the node used for decoding traversal (typically the root)
+     * @return total number of bits written to output, or an error code if PSEUDO_EOF is missing
+     * @throws IOException if reading from input or writing to output fails
      */
-    private int readData(BitInputStream in, OutputStream output, TreeNode node) 
+    private int decodeCompressedData(BitInputStream in, OutputStream out, TreeNode currentNode) 
             throws IOException {
-        BitOutputStream out = new BitOutputStream(output);
-        int bit = in.readBits(1);
-        int bitsWritten = 0;
-        while (bit != -1) {
-            if (node.isLeaf()) {
-                out.writeBits(BITS_PER_WORD, node.getValue());
-                node = root;
-                bitsWritten += BITS_PER_WORD;
+        BitOutputStream bitOut = new BitOutputStream(out);
+        int nextBit = in.readBits(1);
+        int totalBitsWritten = 0;
+
+        while (nextBit != -1) {
+            if (currentNode.isLeaf()) {
+                bitOut.writeBits(BITS_PER_WORD, currentNode.getValue());
+                currentNode = huffRoot;
+                totalBitsWritten += BITS_PER_WORD;
             }
-            if (bit == 0) {
-                node = node.getLeft();
+            if (nextBit == 0) {
+                currentNode = currentNode.getLeft();
             } else {
-                node = node.getRight();
+                currentNode = currentNode.getRight();
             }
-            if (node.getValue() == PSEUDO_EOF) {
-                out.close();
-                return bitsWritten;
+            if (currentNode.getValue() == PSEUDO_EOF) {
+                bitOut.close();
+                return totalBitsWritten;
             }
-            bit = in.readBits(1);
+            nextBit = in.readBits(1);
         }
-        out.close();
+        bitOut.close();
         return NO_PSEUDO_ERROR_CODE;
     }
 
     /**
-     * Helper method that recursively creates the tree that builds the encodings for a 
-     * Standard Counts Format file.
-     * pre: none
-     * @param pq the priority queue that holds the nodes in the tree.
-     * @returns the first node in the queue.
+     * Generates the Huffman tree used for encoding by merging nodes from the priority queue.
+     * Continues merging the two smallest nodes until the tree is complete.
+     *
+     * @param nodeQueue the queue containing TreeNodes ordered by frequency
+     * @return the root node of the resulting Huffman tree
      */
-    private TreeNode generateTree(TreeNodePriorityQueue<TreeNode> pq) {
-        while (pq.size() > 1) {
-            TreeNode first = pq.dequeue();
-            TreeNode second = pq.dequeue();
-
-            pq.enqueue(new TreeNode(first, -1, second));
+    private TreeNode constructTree(TreeNodePriorityQueue<TreeNode> nodeQueue) {
+        while (nodeQueue.size() > 1) {
+            TreeNode left = nodeQueue.dequeue();
+            TreeNode right = nodeQueue.dequeue();
+            TreeNode merged = new TreeNode(left, -1, right);
+            nodeQueue.enqueue(merged);
         }
-
-        return pq.dequeue();
+        return nodeQueue.dequeue();
     }
-
 }

@@ -26,12 +26,12 @@ import java.util.HashMap;
 import java.io.OutputStream;
 
 public class Compression implements IHuffConstants {
-    private int[] charCounts;
-    private HashMap<Integer, String> encoding;
-    private int headerFormat;
-    private TreeNode compressTree;
-    private int precompressVal;
-    private int totalNumNodes;
+    private int[] charFreq;
+    private HashMap<Integer, String> codeMap;
+    private int headerType;
+    private TreeNode treeRoot;
+    private int uncompressedLength;
+    private int totalNodes;
     
     /**
      * Preprocess data so that compression is possible ---
@@ -51,39 +51,22 @@ public class Compression implements IHuffConstants {
      * @throws IOException if an error occurs while reading from the input file.
      */
     public int preCompress(InputStream in, int headerInfo) throws IOException {
-        charCounts = new int[ALPH_SIZE + 1];
-        headerFormat = headerInfo; 
-        // Count characters in the inputed file, and fills
-        // charCounts array of frequencies
+        this.headerType = headerInfo;
+        this.charFreq = new int[ALPH_SIZE + 1];
         int initialLen = countCharacters(in);
-
-        // Creates tree based on frequencies
-        compressTree = createTree();
-
-        // Creates encodings for all the characters in
-        // the inputted file to 
-        encoding = new HashMap<>();
-        totalNumNodes = createEncoding(compressTree, "");
-        
-        int actualDataLen = countActualDataLen();
+        this.treeRoot = createTree();
+        this.codeMap = new HashMap<>();
+        this.totalNodes = createEncoding(treeRoot, "");
+        int dataLen = countDataLen();
         int headerLen = 0;
-        if (headerFormat == STORE_COUNTS) {
-            // the number of bits in this header is the total number of characters times the
-            // number of bits it takes to represent each frequency
+        if (headerType == STORE_COUNTS) {
             headerLen = ALPH_SIZE * BITS_PER_INT;
-        } else if (headerFormat == STORE_TREE) {
-            // The number of bits representing the size of tree + the number of total nodes + 
-            // the number of leaves * (bits per word + 1)
-            headerLen = BITS_PER_INT + totalNumNodes + encoding.size() * (BITS_PER_WORD + 1);
+        } else if (headerType == STORE_TREE) {
+            headerLen = BITS_PER_INT + totalNodes + codeMap.size() * (BITS_PER_WORD + 1);
         }
-
-        // the number of bits saved is calculated as
-        // the number of bits used in the initial file - the bits it takes to 
-        // write all of the data in the new file - the length of the magic number
-        // - the length of the header format number - the length of the header
-        precompressVal = initialLen - (actualDataLen + BITS_PER_INT * 2 + headerLen);
-
-        return precompressVal;
+        this.uncompressedLength = initialLen
+            - (dataLen + 2 * BITS_PER_INT + headerLen);       
+        return uncompressedLength;
     }
 
     /**
@@ -101,75 +84,67 @@ public class Compression implements IHuffConstants {
      * writing to the output file.
      */
     public int compress(InputStream input, OutputStream out, boolean force) throws IOException {
-        if (precompressVal < 0 && !force) {
-            // This means that we are actually writing more bits when
-            // "compressing"
-            return precompressVal;
+        if (uncompressedLength < 0 && !force) {
+            return uncompressedLength;
         }
-
         BitOutputStream output = new BitOutputStream(out);
+        int count = 0;
         output.writeBits(BITS_PER_INT, MAGIC_NUMBER);
-        output.writeBits(BITS_PER_INT, headerFormat);
-        int count = BITS_PER_INT * 2;
-
-        // Prints the headers based on how it should be formatted
-        if (headerFormat == STORE_COUNTS) {
-            for (int i = 0; i < charCounts.length - 1; i++) {
-                output.writeBits(BITS_PER_INT, charCounts[i]);
+        output.writeBits(BITS_PER_INT, headerType);
+        count += BITS_PER_INT * 2;
+        if (headerType == STORE_COUNTS) {
+            for (int i = 0; i < charFreq.length - 1; i++) {
+                output.writeBits(BITS_PER_INT, charFreq[i]);
                 count += BITS_PER_INT;
             }
-        } else if (headerFormat == STORE_TREE) {
+        } else if (headerType == STORE_TREE) {
+            int treeSize = totalNodes + codeMap.size() * (BITS_PER_WORD + 1);
+            output.writeBits(BITS_PER_INT, treeSize);
             count += BITS_PER_INT;
-            // writes how many of the following bits are part of the encoded tree
-            output.writeBits(BITS_PER_INT, totalNumNodes + encoding.size() * (BITS_PER_WORD + 1));
-            count += writeTree(compressTree, output);
+            count += writeTree(treeRoot, output);
         }
-
         count += writeData(input, output);
         output.close();
         input.close();
-
         return count;
     }
 
     /**
-     * Writes stored tree to output file
-     * @param node represents the current node we are writing to the file
-     * @param output is bound to a file/stream to which bits are written
-     * for the compressed file, it is a BitOutputStream
-     * @return the number of bits written
+     * Recursively encodes the Huffman tree structure to the output stream.
+     * @param node the current node in the Huffman tree being processed
+     * @param output the BitOutputStream where the tree structure is being written
+     * @return total number of bits written to the output stream
      */
     private int writeTree(TreeNode node, BitOutputStream output) {
         if (node.isLeaf()) {
             output.writeBits(1, 1);
             output.writeBits(BITS_PER_WORD + 1, node.getValue());
             return BITS_PER_WORD + 2;
+        } else {
+            output.writeBits(1, 0);
+            int leftBits  = writeTree(node.getLeft(), output);
+            int rightBits = writeTree(node.getRight(), output);
+            return leftBits + rightBits + 1;
         }
-        output.writeBits(1, 0);
-        return 1 + writeTree(node.getLeft(), output) + writeTree(node.getRight(), output);
     }
 
     /**
-     * Encodes the data from in to output
-     * @param in is the stream which could be subsequently compressed
-     * @param output is bound to a file/stream to which bits are written
-     * for the compressed file, it is a BitOutputStream
-     * @return the number of bits written
-     * @throws IOException if an error occurs while reading from the input file or
-     * writing to the output file.
+     * Reads raw data from the input stream, encodes it using Huffman codes,
+     * and writes the resulting bits to the output stream.
+     * @param in the input stream to be compressed
+     * @param output the BitOutputStream receiving the encoded bit data
+     * @return total number of bits written to the compressed file
+     * @throws IOException if an error occurs during input or output operations
      */
     private int writeData(InputStream in, BitOutputStream output) throws IOException {
         BitInputStream input = new BitInputStream(in);
         int count = 0;
-        int inbits = input.readBits(BITS_PER_WORD);
-        
-        while (inbits != -1) {
-            String code = encoding.get(inbits);
+        for (int inbits = input.readBits(BITS_PER_WORD); inbits != -1; inbits = input.readBits(BITS_PER_WORD)) {
+            String code = codeMap.get(inbits);
             printCode(code, output);
             count += code.length();
-            inbits = input.readBits(BITS_PER_WORD);
         }
-        String pseudoCode = encoding.get(PSEUDO_EOF);
+        String pseudoCode = codeMap.get(PSEUDO_EOF);
         printCode(pseudoCode, output);
         count += pseudoCode.length();
         input.close();
@@ -177,105 +152,99 @@ public class Compression implements IHuffConstants {
     }
 
     /**
-     * Prints code to output
-     * @param code represents the String we are printing to output
-     * @param output is bound to a file/stream to which bits are written
-     * for the compressed file, it is a BitOutputStream
+     * Converts a binary string into bits and writes them to the output stream.
+     * @param code Huffman code string made of '0's and '1's
+     * @param output stream where the individual bits are written
      */
     private void printCode(String code, BitOutputStream output) {
-        for (int i = 0; i < code.length(); i++) {
-            output.writeBits(1, Integer.valueOf(code.substring(i, i + 1)));
+        for (int i = 0, len = code.length(); i < len; ++i) {
+            output.writeBits(1, code.charAt(i) - '0');
         }
     }
-
     /**
-     * Calculates the number of characters used in the original file
-     * @return the number of characters read
+     * Determines the bit length of the compressed file content
+     * by summing each character’s frequency times its Huffman code length.
+     * @return total number of bits required for encoding all input characters
      */
-    private int countActualDataLen() {
-        int counter = 0;
-        for (int i = 0; i < charCounts.length; i++) {
-            if (charCounts[i] != 0) {
-                counter += encoding.get(i).length() * charCounts[i];
+    private int countDataLen() {
+        int sum = 0;
+        for (int i = 0, n = charFreq.length; i < n; i++) {
+            int freq = charFreq[i];
+            if (freq == 0){
+                continue;
             }
+            sum += codeMap.get(i).length() * freq;
         }
-
-        return counter;
+        return sum;
     }
 
     /**
-     * Fills encoding with the value of each node and the path it took to get to that node
-     * @param node represents the current node we are considering
+     * Fills codeMap with the value of each node and the path it took to get to that node
+     * @param treeNode represents the current node we are considering
      * @param path represents the path it took to get to the current node
      * @return the total number of nodes
      */
     private int createEncoding(TreeNode node, String path) {
         if (node.isLeaf()) {
-            encoding.put(node.getValue(), path);
+            codeMap.put(node.getValue(), path);
             return 1;
         }
-        int num = createEncoding(node.getLeft(), path + "0");
-        num++;
-        num += createEncoding(node.getRight(), path + "1");
-        return num;
+        int subtotal = 1;
+        String leftPath = path + "0";
+        String rightPath= path + "1";
+        subtotal += createEncoding(node.getLeft(), leftPath);
+        subtotal += createEncoding(node.getRight(), rightPath);
+        return subtotal;
     }
 
     /**
-     * Creates a tree to store all of the character frequencies
+     * Creates a tree to store all of the character frequencies.
      * @return TreeNode that stores all of the character frequencies
      */
     private TreeNode createTree() {
-    	TreeNodePriorityQueue<TreeNode> pq = new TreeNodePriorityQueue<>();
-        // Adds all characters with frequencies (TreeNodes) to PriorityQueue
-        for (int i = 0 ; i < charCounts.length; i++) {
-            if (charCounts[i] != 0) {
-                pq.enqueue(new TreeNode(i, charCounts[i]));
+        TreeNodePriorityQueue<TreeNode> pq = new TreeNodePriorityQueue<>();
+        int n = charFreq.length;
+        for (int i = 0; i < n; i++) {
+            int f = charFreq[i];
+            if (f == 0){
+                continue;
             }
+            pq.enqueue(new TreeNode(i, f));
         }
-
         return generateTree(pq);
     }
 
     /**
-     * Generates a tree from the passed PriorityQueue with TreeNodes of characters with
-     * higher frequencies typically close to the root in terms of height
-     * @param pq represents a PriorityQueue with nodes of characters and frequencies
-     * @return tree of TreeNodes
+     * Builds a Huffman tree from a priority queue of TreeNodes.
+     * Combines the two nodes with the lowest frequencies until only one tree remains.
+     * @param pq priority queue of TreeNodes, ordered by frequency
+     * @return the root of the final Huffman tree
      */
     private TreeNode generateTree(TreeNodePriorityQueue<TreeNode> pq) {
-        // We shall keep merging the first and second element of the 
-        // PriorityQueue until there exists one element, as that means we are done
         while (pq.size() > 1) {
-            TreeNode first = pq.dequeue();
-            TreeNode second = pq.dequeue();
-
+            TreeNode first = pq.dequeue(); 
+            TreeNode second = pq.dequeue();  
             pq.enqueue(new TreeNode(first, -1, second));
         }
-
         return pq.dequeue();
     }
 
     /**
-     * Counts the number of characters in the input file
-     * @param in is the stream being compressed (NOT a BitInputStream)
-     * @return the number of characters read
-     * @throws IOException if an error occurs while reading from the input file or
-     * writing to the output file.
+     * Tallies the number of characters in the input stream and updates
+     * the frequency table accordingly.
+     * @param in the stream from which characters are read
+     * @return number of bits read from the input stream
+     * @throws IOException if any I/O operation fails
      */
     private int countCharacters(InputStream in) throws IOException {
         BitInputStream bits = new BitInputStream(in);
-        int count = 0;
-        int inbits = bits.readBits(BITS_PER_WORD);
-        
-        while (inbits != -1) {
-            count += BITS_PER_WORD;
-            charCounts[inbits]++;
-            inbits =  bits.readBits(BITS_PER_WORD);
+        int totalBits = 0;
+        for (int value = bits.readBits(BITS_PER_WORD); value != -1; value = bits.readBits(BITS_PER_WORD)) {
+            totalBits += BITS_PER_WORD;
+            charFreq[value]++;
         }
-        
-        // this represents the PSEUDO_EOF character
-        charCounts[charCounts.length - 1]++;
+        charFreq[charFreq.length - 1]++;
         bits.close();
-        return count;
+        return totalBits;
     }
 }
