@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Decompression implements IHuffConstants {
+public class Decompressor implements IHuffConstants {
     private TreeNode huffRoot;
     public final static int NO_PSEUDO_ERROR_CODE = -2;
 

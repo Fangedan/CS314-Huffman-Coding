@@ -102,23 +102,4 @@ public class TreeNodePriorityQueue<E extends Comparable<? super E>> {
     public int size() {
         return con.size();
     }
-
-    /**
-     * pre: none
-     * @return a String representation of the queue, in ascending order surrounded by square 
-     * brackets and separated by commas and spaces.
-     */
-    public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        for (int i = con.size() - 1; i > 0; i--) {
-            sb.append(con.get(i));
-            sb.append(", ");
-        }
-        if (con.size() > 0) {
-            sb.append(con.get(0));
-        }
-        sb.append("]");
-
-        return sb.toString();
-    }
 }

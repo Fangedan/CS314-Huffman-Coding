@@ -26,7 +26,7 @@ import java.io.OutputStream;
 
 public class SimpleHuffProcessor implements IHuffProcessor {
 
-    private Compression compress;
+    private Compressor compress;
     private IHuffViewer myViewer;
 
     /**
@@ -47,7 +47,7 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * @throws IOException if an error occurs while reading from the input file.
      */
     public int preprocessCompress(InputStream in, int headerFormat) throws IOException {
-        compress = new Compression();
+        compress = new Compressor();
         return compress.preCompress(in, headerFormat);
     }
 
@@ -86,11 +86,11 @@ public class SimpleHuffProcessor implements IHuffProcessor {
      * writing to the output file.
      */
     public int uncompress(InputStream in, OutputStream out) throws IOException {
-        Decompression decompress = new Decompression();
+        Decompressor decompress = new Decompressor();
         int output = decompress.decompress(in, out);
         if (output == -1) {
             return -1;
-        } else if (output == Decompression.NO_PSEUDO_ERROR_CODE) {
+        } else if (output == Decompressor.NO_PSEUDO_ERROR_CODE) {
             myViewer.showError("java.io.IOException: Error reading compressed file.");
         }
         return output;

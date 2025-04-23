@@ -25,13 +25,13 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.io.OutputStream;
 
-public class Compression implements IHuffConstants {
-    private int[] charFreq;
-    private HashMap<Integer, String> codeMap;
-    private int headerType;
+public class Compressor implements IHuffConstants {
     private TreeNode treeRoot;
     private int uncompressedLength;
     private int totalNodes;
+    private int[] charFreq;
+    private HashMap<Integer, String> codeMap;
+    private int headerType;
     
     /**
      * Preprocess data so that compression is possible ---
@@ -57,7 +57,7 @@ public class Compression implements IHuffConstants {
         this.treeRoot = createTree();
         this.codeMap = new HashMap<>();
         this.totalNodes = createEncoding(treeRoot, "");
-        int dataLen = countDataLen();
+        int dataLen = count();
         int headerLen = 0;
         if (headerType == STORE_COUNTS) {
             headerLen = ALPH_SIZE * BITS_PER_INT;
@@ -166,7 +166,7 @@ public class Compression implements IHuffConstants {
      * by summing each character’s frequency times its Huffman code length.
      * @return total number of bits required for encoding all input characters
      */
-    private int countDataLen() {
+    private int count() {
         int sum = 0;
         for (int i = 0, n = charFreq.length; i < n; i++) {
             int freq = charFreq[i];
